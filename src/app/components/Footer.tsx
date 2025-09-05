@@ -1,76 +1,45 @@
-
-"use client";
-
-import {
-  Footer,
-  FooterCopyright,
-  FooterDivider,
-  FooterLink,
-  FooterLinkGroup,
-  FooterTitle,
- 
-} from "flowbite-react";
 import Image from "next/image";
-
-
-
+import Link from "next/link";
 
 export function FooterBottom() {
-  return (
- 
-    <Footer container className="border-t-[0.5px] border-zinc-400 bg-gradient-to-r from-[#F3E8FF] to-[#E9D5FF] 
-    px-10 lg:px-32 text-[16px] pt-12">
-      <div className="w-full">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1 gap-y-8">
-          <div>
-            <Image
-              className="h-18 w-full"
-              src="/sabiyou.png"
-              alt="Flowbite Logo"
-              width={70} 
-              height={70}
-             
-            />
+    return (
+        <footer
+            className="border-t-1 border-zinc-400 font-[family-name:var(--font-lexend)] font-light lg:p-32 py-24 px-4 sm:px-10 tracking-tight bg-[#f7c6ff]/30 flex flex-col lg:flex-row text-[#282829] gap-x-48 gap-y-10 justify-center">
+            <div className="space-y-6">
+                <Link href="/" ><Image src="/images/sabiyou_logo.png" alt="Sabiyou Logo" width={150} height={150} className="lg:w-20 w-14" /></Link>
+                <p className="text-[18px] leading-loose">Embracing Culture <br /> Reconnecting Roots.</p>
+            </div>
 
-          
-          </div>
-          
-            <div>
-              <FooterTitle title="Quicklinks" className="text-xl text-[#333333]" />
-              <FooterLinkGroup col className="text-md text-[#333333]">
-                <FooterLink href="#">About</FooterLink>
-                <FooterLink href="#">Stories</FooterLink>
-                <FooterLink href="#">Store</FooterLink>
-                 <FooterLink href="#">Books</FooterLink>
-              </FooterLinkGroup>
+            <div className="space-y-4 lg:space-x-10">
+                <h6 className="text-[25px] font-bold tracking-tight font-[family-name:var(--font-raleway)]">Quick links</h6>
+                <div className="flex flex-col space-y-2 text-[18px]">
+                    <Link href="/about" className="hover:text-[#53007B]">About</Link>
+                    <Link href="/blog" className="hover:text-[#53007B]">Stories</Link>
+                    <Link href="/contact" className="hover:text-[#53007B]">Contact Us</Link>
+                    <Link href="/store" className="hover:text-[#53007B]">Stores</Link>
+                    <Link href="/community" className="hover:text-[#53007B]">Community</Link>
+                </div>
             </div>
-            <div>
-              <FooterTitle title="Follow us" className="text-xl text-[#333333]" />
-              <FooterLinkGroup col className="text-md text-[#333333]">
-                <FooterLink href="#">Instagram</FooterLink>
-                <FooterLink href="#">TikTok</FooterLink>
-                <FooterLink href="#">YouTube</FooterLink>
-              
-              </FooterLinkGroup>
+
+
+            <div className="space-y-4 lg:space-x-10">
+                <h6 className="text-[25px] font-bold tracking-tigh font-[family-name:var(--font-raleway)]">Other links</h6>
+                <div className="flex flex-col space-y-2 text-[18px]">
+                    <Link href="/privacy" className="hover:text-[#53007B]">Privacy</Link>
+                    <Link href="/terms" className="hover:text-[#53007B]">Terms and Conditions</Link>
+                    <Link href="/disclaimer" className="hover:text-[#53007B]">Disclaimer</Link>
+                </div>
             </div>
-            <div>
-              <FooterTitle title="Legal"  className="text-xl text-[#333333]" />
-              <FooterLinkGroup col className="text-md text-[#333333]">
-                <FooterLink href="#">Privacy Policy</FooterLink>
-                <FooterLink href="#">Terms &amp; Conditions</FooterLink>
-              </FooterLinkGroup>
+
+            <div className="space-y-4 lg:space-x-10">
+                <h6 className="text-[25px] font-bold tracking-tigh font-[family-name:var(--font-raleway)]">Follow Us</h6>
+                <div className="flex flex-col space-y-2 text-[18px]">
+                    <Link href="https://www.instagram.com/heartofafrica2025/" className="hover:text-[#53007B]">Instagram</Link>
+                    <Link href="https://tiktok.com/@sabiyouculture" className="hover:text-[#53007B]">TikTok</Link>
+                    <Link href="https://youtube.com/@heartofafrica2025" className="hover:text-[#53007B]">YouTube</Link>
+                </div>
             </div>
-          
-        </div>
-        <FooterDivider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <FooterCopyright href="#" by="Afroeuropean Business Services" year={new Date().getFullYear()} className="text-md"/>
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-           
-          </div>
-        </div>
-      </div>
-    </Footer>
-    
-  );
+        </footer>
+
+    );
 }

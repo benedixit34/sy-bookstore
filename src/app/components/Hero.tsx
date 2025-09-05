@@ -6,7 +6,8 @@ export function Hero() {
             <div className="flex flex-col pt-24 lg:pt-48 pb-16 mx-4 xl:mx-32 justify-center ">
                 <div className="px-4 pb-8 flex flex-col gap-y-12 lg:gap-12 lg:pb-16">
                     <div className="content-center justify-self-center md:text-center mt-12 lg:mt-0">
-                        <h1 className="mb-4 text-4xl text-left md:text-center font-bold leading-12 xl:leading-18 tracking-tight font-[raleway] md:text-5xl xl:text-6xl">
+                        <h1 className="mb-4 text-3xl text-left md:text-center font-bold leading-12 xl:leading-18 
+                        tracking-tight font-[raleway] md:text-5xl xl:text-6xl">
                             Get Culture E-Books
                             <br />
                             At A Discounted Price!

@@ -42,10 +42,11 @@ export function NavBar() {
             </nav>
             {isOpen &&
                 <div className="transition-all duration-300 ease-in-out transform lg:hidden flex flex-col bg-white gap-y-10 h-[90vh] pt-12 pl-10 text-[22px] tracking-tighter font-bold overflow-hidden max-h-screen">
-                    <a href="" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Home</a>
-                    <a href="" className="py-2 px-4 rounded-lg hover:text-[#53007B]">About</a>
-                    <a href="" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Blog</a>
-                    <a href="" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Contact Us</a>
+                    <Link href="/" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Home</Link>
+                    <Link href="/book/list" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Books</Link>
+                    <Link href="/book/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Library</Link>
+                    <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart</Link>
+                    <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
                 </div>
             }
 
