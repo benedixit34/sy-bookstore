@@ -7,7 +7,7 @@ export default function BookDetail() {
     return (
         <>
         <NavBar />
-        <section className="grid grid-cols-1 lg:grid-cols-2 xl:p-32 md:px-10 py-32 px-4 gap-x-12 place-items-center">
+        <section className="grid grid-cols-1 lg:grid-cols-2 xl:p-32 md:px-10 py-32 px-4 gap-12 place-items-center">
             <div className="">
                 <Image
       src="/book_cover.jpg"
