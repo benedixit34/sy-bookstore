@@ -14,23 +14,24 @@ export default function Home() {
       <section className="mx-auto container">
         <div className="flex flex-col justify-center mx-4 lg:mx-10 xl:mx-32">
         <h1 className="text-5xl font-[raleway] font-bold pb-16 tracking-tight text-center">Latest Books</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-between gap-2 w-full">
-          <EcomCard imgSrc="./book_cover.jpg" bookName="Create Your Own Business" />
-          <EcomCard imgSrc="./book_cover.jpg" bookName="Create Your Own Business" />
-          <EcomCard imgSrc="./book_cover.jpg" bookName="Create Your Own Business" />
-          <EcomCard imgSrc="./book_cover.jpg" bookName="Create Your Own Business" />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-between gap-2 w-full">
+          <EcomCard imgSrc="./Pierogi.png" bookName="Milo's Pierogi: A Krakow Adventure of Flavors and Surprises" />
+          <EcomCard imgSrc="./Kwame.png" bookName="Kwame's Kente Adventure: Threads of Joy from Ghana" />
+          <EcomCard imgSrc="./Chopsticks.png" bookName="The Mismatched Chopsticks: A Tale of Lanterns, Noodles, and New Luck" />
           
-          
+
+
 
 
         </div>
         </div>
       </section>
-      <section className="my-32 container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 border-[0.5px] border-zinc-400 rounded-xl shadow-lg mx-4 lg:mx-10 xl:mx-32">
+      <section className="my-32 container mx-auto font-[lexend]">
+        <div className="font-[raleway] grid grid-cols-1 lg:grid-cols-2 border-[0.5px] border-zinc-400 
+        rounded-xl shadow-lg mx-4 lg:mx-10 xl:mx-32">
         <div className="px-4 lg:px-16 content-center py-16">
-          <h1 className="text-2xl font-bold tracking-tighter mb-5">Get Culture Books For Your School</h1>
-          <p className="leading-loose">Bring culture alive in your classrooms with digital learning resources designed for today’s
+          <h1 className="text-3xl font-bold tracking-tighter mb-5">Get Culture Books For Your School</h1>
+          <p className="leading-loose font-regular">Bring culture alive in your classrooms with digital learning resources designed for today’s
             students. Our curated collection of eBooks helps schools introduce children to local traditions,
             folklore, history, and global cultures in a fun and interactive way.</p>
           <a href="#" className="mt-5 inline-block rounded-lg bg-[#53007B] px-6 py-3.5 text-center font-medium text-white

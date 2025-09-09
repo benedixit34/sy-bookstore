@@ -10,7 +10,7 @@ type EcomCardProps = {
 export function EcomCard({ imgSrc, bookName }: EcomCardProps) {
   return (
     <Card
-      className="w-full border-zinc-400"
+      className="w-full border-zinc-400 font-[lexend]"
       imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
       imgSrc={imgSrc}
     >
@@ -19,7 +19,7 @@ export function EcomCard({ imgSrc, bookName }: EcomCardProps) {
           {bookName}
         </h5>
         <p className="text-sm font-extralight text-gray-500 mt-2">
-          Author Name
+          Afroeuropean
         </p>
       </Link>
       <div className="mb-5 mt-1 flex items-center">

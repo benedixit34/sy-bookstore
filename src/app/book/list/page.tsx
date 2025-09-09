@@ -18,7 +18,7 @@ export default function Page() {
       <ThemeInit />
       <NavBar />
 
-      <section className="mx-auto container">
+      <section className="mx-auto container font-[lexend]">
         <div className="flex flex-col justify-center mx-4 lg:mx-32 pt-48">
           <h1 className="text-5xl font-[raleway] font-bold pb-4 tracking-tight">
             Explore Our Books
@@ -73,15 +73,10 @@ export default function Page() {
       </section>
 
       <section className="container mx-auto">
-        <div className="lg:mx-32 mx-4 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
-         <EcomCard imgSrc="/book_cover.jpg" bookName="Create Your Own Business" />
+        <div className="lg:mx-32 mx-4 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <EcomCard imgSrc="/Pierogi.png" bookName="Milo's Pierogi: A Krakow Adventure of Flavors and Surprises" />
+          <EcomCard imgSrc="/Kwame.png" bookName="Kwame's Kente Adventure: Threads of Joy from Ghana" />
+          <EcomCard imgSrc="/Chopsticks.png" bookName="The Mismatched Chopsticks: A Tale of Lanterns, Noodles, and New Luck" />
          </div>
         
         

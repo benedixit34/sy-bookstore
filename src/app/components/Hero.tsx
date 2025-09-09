@@ -12,7 +12,7 @@ export function Hero() {
                             <br />
                             At A Discounted Price!
                         </h1>
-                        <p className="mb-4 text-gray-500 md:mb-12 lg:mb-5 text-md">
+                        <p className="mb-4 text-gray-500 md:mb-12 lg:mb-5 text-md font-[lexend]">
                             Don&apos;t Wait - Limited Stock at Unbeatable Prices!
                         </p>
                         <a
