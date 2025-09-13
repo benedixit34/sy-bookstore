@@ -15,7 +15,7 @@ type EcomCardProps = {
   bookName: string;
   action?: string;
   library?: boolean;
-  showToast?: (msg: string) => void;
+ 
 };
 
 type LibraryItem = {
@@ -24,7 +24,15 @@ type LibraryItem = {
 };
 
 
-export function EcomCard({ imgSrc, bookName, action, library, showToast }: EcomCardProps) {
+export function EcomCard({ imgSrc, bookName, action, library }: EcomCardProps) {
+
+   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+    const showToast = (msg: string, duration = 3000) => {
+        setToastMessage(msg);
+        setTimeout(() => setToastMessage(null), duration);
+    };
+
    
   const handleSave = () => {
     
@@ -47,6 +55,8 @@ export function EcomCard({ imgSrc, bookName, action, library, showToast }: EcomC
     console.log(Cookies.get("library"));
   };
   return (
+    <>
+    {toastMessage && <ToastItem message={toastMessage} />}
     <Card
       className="w-full border-zinc-400 font-[lexend]"
       imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
@@ -68,7 +78,7 @@ export function EcomCard({ imgSrc, bookName, action, library, showToast }: EcomC
       </div>
       <div className="flex items-center justify-between">
         {
-          library == true ?
+          library == false ?
           <span className="text-3xl font-bold text-gray-900">$599</span>: null
         }
 
@@ -80,5 +90,6 @@ export function EcomCard({ imgSrc, bookName, action, library, showToast }: EcomC
       </div>
       
     </Card>
+  </>
   );
 }

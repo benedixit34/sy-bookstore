@@ -50,7 +50,7 @@ export default function CartItemCard({
     items-center gap-4 p-4 font-[lexend]">
       {/* Product Image */}
       <Image
-        src={imgSrc}
+        src={imgSrc.trimStart()}
         alt={bookName}
         className="w-20 h-20 object-cover rounded-lg border"
         width={80}
