@@ -7,13 +7,15 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"
-  
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-   
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.57.4",
+    "@workos-inc/authkit-nextjs": "^2.6.0",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.12.7",
+    "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.1",
     "next": "15.5.0",
     "react": "19.1.0",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -33,5 +36,4 @@
     "typescript": "^5",
     "wrangler": "^4.34.0"
   }
-  
 }
