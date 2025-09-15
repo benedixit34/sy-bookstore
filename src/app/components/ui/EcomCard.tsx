@@ -1,11 +1,10 @@
 "use client";
 
 
-import { Card, Button, Toast } from "flowbite-react";
+import { Card, Button } from "flowbite-react";
 import StarRating from "./StarRating";
 import Link from "next/link";
 import { ToastItem } from "./ToastItem";
-
 import Cookies from "js-cookie";
 import { useState } from "react";
 
@@ -15,7 +14,7 @@ type EcomCardProps = {
   bookName: string;
   action?: string;
   library?: boolean;
- 
+  
 };
 
 type LibraryItem = {

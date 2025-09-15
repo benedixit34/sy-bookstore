@@ -4,8 +4,8 @@ import LibraryGrid from "@/app/components/LibraryGrid";
 export default async function Page() {
   const supabase = await createClient();
 
-  const { data: library, error } = await supabase.from("library").select("*");
-  console.log(await supabase.from("library").select("*"))
+  const { data: library, error } = await supabase.from("book").select("*");
+  console.log(await supabase.from("book").select("*"))
 
   if (error) {
     console.error("Supabase fetch error:", error.message);

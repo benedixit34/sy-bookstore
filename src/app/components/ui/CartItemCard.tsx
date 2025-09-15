@@ -2,48 +2,26 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "flowbite-react";
-import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 type CartItemProps = {
   imgSrc: string;
   bookName: string;
   price?: number;
   school?: boolean;
+  onRemoveAction: (bookName: string) => void;
+
 };
 
 export default function CartItemCard({
   imgSrc,
   bookName,
   price,
-  school
+  school,
+  onRemoveAction
 
 }: CartItemProps) {
 
-
-  const [library, setLibrary] = useState<any[]>([]);
-  const [visible, setVisible] = useState<boolean>(true);
-
-
-  
-
-  useEffect(() => {
-    const cookieLibrary = Cookies.get("library");
-    if (cookieLibrary) {
-      setLibrary(JSON.parse(cookieLibrary));
-    }
-  }, []);
-
-  const removeItem = (bookNameToRemove: string) => {
-    const updatedLibrary = library.filter(item => {
-      return item.bookName.trim() !== bookNameToRemove.trim();
-    });
-    setVisible(false);
-    setLibrary(updatedLibrary);
-    Cookies.set("library", JSON.stringify(updatedLibrary));
-  };
-
-  if (!visible) return null;
 
   return (
     <div className="w-full max-w-2xl bg-white rounded-2xl shadow-md border border-zinc-500 flex 
@@ -66,12 +44,8 @@ export default function CartItemCard({
       </div>
 
 
-      <Button onClick={() => removeItem(bookName)}
-        className="text-red-500 hover:text-red-700 font-medium"
-      
-      >
-        ✕
-      </Button>
+        <XMarkIcon onClick={() => onRemoveAction(bookName)} className="text-[#53007B] w-12" />
+    
     </div>
   );
 }

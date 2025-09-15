@@ -2,8 +2,16 @@ import { FooterBottom } from "@/app/components/Footer"
 import { NavBar } from "@/app/components/NavBar"
 import { LibraryCard } from "@/app/components/ui/LibraryCard"
 import { ThemeInit } from "../../../../.flowbite-react/init"
+import { createClient } from "@/app/utils/supabase/server"
 
-export default function Page () {
+export default async function Page () {
+    const supabase = await createClient();
+  
+    const { data: library, error } = await supabase.from("user_library").select("*");
+    console.log(library)
+  
+    if (error) {
+      console.error("Supabase fetch error:", error.message);
     return (
     <>
     <ThemeInit />
@@ -25,3 +33,4 @@ export default function Page () {
       </>
     )
   }
+}
