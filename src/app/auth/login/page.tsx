@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button, Card, Checkbox, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import { createTheme } from "flowbite-react";
-import { signInAction } from "@/app/actions";
+import { signInAction } from "@/app/actions/authActions";
 
 
 
@@ -28,7 +28,7 @@ export default function UserForm() {
        <ThemeProvider theme={customTheme}>
             <ThemeInit />
           
-            <section className="font-[lexend]">
+            <section className="font-[lexend] bg-yellow-50 flex justify-center min-h-[100vh]">
                 <div className="flex flex-col justify-center py-16">
                     <div className="w-full place-items-center flex flex-col">
                       <Link href="/" className="mb-8 self-center">
@@ -44,14 +44,14 @@ export default function UserForm() {
                               <div className="mb-2 block">
                                 <Label htmlFor="email1">Your email</Label>
                               </div>
-                              <TextInput id="email1" type="email" placeholder="Enter Your Email" required 
+                              <TextInput id="email1" type="email" placeholder="Enter Your Email" name="email" required 
                               className="ring-[#53007B] border-gray-900" />
                             </div>
                             <div>
                               <div className="mb-2 block">
                                 <Label htmlFor="password1">Your password</Label>
                               </div>
-                              <TextInput id="password1" type="password" required />
+                              <TextInput id="password1" type="password" name="password" required />
                             </div>
                             <div className="flex items-center gap-2">
                               <Checkbox id="remember" />

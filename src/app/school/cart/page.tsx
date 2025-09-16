@@ -4,12 +4,12 @@ import { ThemeInit } from "../../../../.flowbite-react/init";
 import { FooterBottom } from "@/app/components/Footer";
 import { NavBar } from "../../components/NavBar";
 import CartItemCard from "../../components/ui/CartItemCard";
-import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Button } from "flowbite-react";
-import { createClient } from "@/app/utils/supabase/server";
+import { useState, useEffect } from "react";
+import { saveToLibrary } from "@/app/actions/saveToLibrary";
 
-export default function CheckoutPage() {
+export default function Page() {
   const [library, setLibrary] = useState<any[]>([]);
   const [visible, setVisible] = useState<boolean>(true);
 
@@ -33,33 +33,10 @@ export default function CheckoutPage() {
     Cookies.set("library", JSON.stringify(updatedLibrary));
   };
 
-  const SaveToLibrary = async () => {
-    const supabase = await createClient();
-
-    const { data: { user }, error: userError} = await supabase.auth.getUser();
-    if (userError || !user) {
-      alert("You must be logged in to add to your library.");
-      return;
-    }
-    const { data, error } = await supabase.from("user_libraries").insert(
-      library.map((item) => ({
-        user_id: user.id,
-        book_name: item.bookName,
-        img_src: item.imgSrc,
-        school: item.school,
-      }))
-    );
-
-     if (error) {
-      console.error("Error saving to user library:", error.message);
-    } else {
-      alert("Books added to your library!");
-      Cookies.remove("library");
-      setLibrary([]);
-    }
 
 
-  };
+
+
 
   return (
     <>
@@ -85,7 +62,16 @@ export default function CheckoutPage() {
         )}
         {library.length > 0 && (
           <div className="mt-4 font-[lexend]">
-            <Button onClick={SaveToLibrary} className="bg-[#53007B] mt-4">Proceed to Checkout</Button>
+            <Button onClick={async () => {
+              try {
+                await saveToLibrary(library);
+                alert("Books added to your library!");
+                Cookies.remove("library");
+                setLibrary([]);
+              } catch (err: any) {
+                alert(err.message);
+              }
+            }} className="bg-[#53007B] mt-4">Proceed to Checkout</Button>
           </div>
         )}
       </div>

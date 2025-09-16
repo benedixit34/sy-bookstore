@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button, Card, Checkbox, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../../.flowbite-react/init";
 import { createTheme } from "flowbite-react";
-import { signInAction } from "@/app/actions";
+import { signInAction } from "@/app/actions/authActions";
 import Form from "next/form";
 
 
@@ -20,6 +20,7 @@ const customTheme = createTheme({
     },
   },
 });
+
 
 
 
