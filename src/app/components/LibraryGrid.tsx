@@ -89,7 +89,7 @@ export default function LibraryGrid({ library = [] }: { library?: any[] }) {
             <section className="container mx-auto">
                 <div className="lg:mx-32 mx-4 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {library && library?.map((book: any) => (
-                        <EcomCard key={book.id} imgSrc={book.image_source} bookName={book.book_name} action="Save In Library"
+                        <EcomCard key={book.id} imgSrc={book.image} bookName={book.name} action="Save In Library"
                             library={true} />
                     ))}
 

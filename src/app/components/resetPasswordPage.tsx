@@ -33,7 +33,7 @@ type ResetPasswordPageProps = {
 
 
 
-export function ResetPasswordPage({ code }: ResetPasswordPageProps) {
+export function ResetPasswordPage() {
   
 
 
