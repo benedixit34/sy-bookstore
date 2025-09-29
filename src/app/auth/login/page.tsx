@@ -23,7 +23,7 @@ const customTheme = createTheme({
 
 
 
-export default function UserForm() {
+export default function Page() {
     return (
        <ThemeProvider theme={customTheme}>
             <ThemeInit />

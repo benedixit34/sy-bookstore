@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 
 import {
     TextInput,
@@ -10,23 +9,43 @@ import {
 
 } from "flowbite-react";
 import { ThemeInit } from "../../../.flowbite-react/init";
-import { NavBar } from "../components/NavBar";
+import { NavBar } from "@/app/components/NavBar";
 import { EcomCard } from "@/app/components/ui/EcomCard";
 import { FooterBottom } from "@/app/components/Footer";
 import { ToastItem } from "@/app/components/ui/ToastItem";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
-export default function LibraryGrid({ library = [] }: { library?: any[] }) {
-    const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-    const showToast = (msg: string, duration = 3000) => {
+export default function Page() {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [books, setBooks] = useState<any[]>([])
+  
+
+  useEffect (() => {
+    const fetchBooks = async () => {
+      const res = await fetch("/api/books")
+      const data = await res.json();
+      if (!res.ok) {
+        console.error("Supabase fetch error:", data.error);
+      }
+      setBooks(data.books ?? []);
+
+
+    }
+    fetchBooks()
+  }, [])
+  
+  
+  
+
+  const showToast = (msg: string, duration = 3000) => {
         setToastMessage(msg);
         setTimeout(() => setToastMessage(null), duration);
     };
 
 
-    return (
+  return (
         <>
             <ThemeInit />
             <NavBar />
@@ -88,8 +107,8 @@ export default function LibraryGrid({ library = [] }: { library?: any[] }) {
 
             <section className="container mx-auto">
                 <div className="lg:mx-32 mx-4 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    {library && library?.map((book: any) => (
-                        <EcomCard key={book.id} imgSrc={book.image} bookName={book.name} action="Save In Library"
+                    {books && books?.map((book: any) => (
+                        <EcomCard key={book.id} bookId={book.id} imgSrc={book.image} bookName={book.name} action="Save In Library"
                             library={true} />
                     ))}
 

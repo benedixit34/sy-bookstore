@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Card, Button } from "flowbite-react";
 import StarRating from "./StarRating";
 import Link from "next/link";
@@ -14,16 +13,18 @@ type EcomCardProps = {
   bookName: string;
   action?: string;
   library?: boolean;
+  bookId?: string;
   
 };
 
 type LibraryItem = {
+  bookId?: string;
   bookName: string;
   imgSrc: string;
 };
 
 
-export function EcomCard({ imgSrc, bookName, action, library }: EcomCardProps) {
+export function EcomCard({ bookId, imgSrc, bookName, action, library }: EcomCardProps) {
 
    const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -32,8 +33,19 @@ export function EcomCard({ imgSrc, bookName, action, library }: EcomCardProps) {
         setTimeout(() => setToastMessage(null), duration);
     };
 
+
    
-  const handleSave = () => {
+  const handleSave = async () => {
+
+    const res = await fetch("/api/cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bookId }),
+    })
+    const data = await res.json()
+    if (!res.ok){
+      console.error(data.error)
+    }
     
     const existing: LibraryItem[] = JSON.parse(Cookies.get("library") || "[]");
      const alreadyExists = existing.some(
@@ -44,8 +56,8 @@ export function EcomCard({ imgSrc, bookName, action, library }: EcomCardProps) {
       showToast?.(`${bookName} is already in your library!`);
       return;
     }
-    if (!existing.includes({bookName: bookName, imgSrc: imgSrc})) {
-      existing.push({bookName: bookName, imgSrc: imgSrc});
+    if (!existing.includes({bookId: bookId, bookName: bookName, imgSrc: imgSrc})) {
+      existing.push({bookId: bookId, bookName: bookName, imgSrc: imgSrc});
       Cookies.set("library", JSON.stringify(existing), { expires: 7 }); // expires in 7 days
     }
     

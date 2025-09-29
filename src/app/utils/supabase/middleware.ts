@@ -1,5 +1,12 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import type { User } from "@supabase/supabase-js";
+
+
+interface UpdateSessionResult {
+  response: NextResponse;
+  user: User | null;
+}
 
 
 export async function updateSession(request: NextRequest) {
@@ -29,7 +36,7 @@ export async function updateSession(request: NextRequest) {
   )
 
   // refreshing the auth token
-  await supabase.auth.getUser()
+  const { data: {user} } = await supabase.auth.getUser()
 
-  return supabaseResponse
+  return { response: supabaseResponse, user };
 }

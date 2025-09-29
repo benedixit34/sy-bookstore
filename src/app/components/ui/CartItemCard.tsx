@@ -1,21 +1,22 @@
 "use client"
 import Image from "next/image";
 import React from "react";
-import { Button } from "flowbite-react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
 type CartItemProps = {
   imgSrc: string;
   bookName: string;
+  bookId: string;
   price?: number;
   school?: boolean;
-  onRemoveAction: (bookName: string) => void;
+  onRemoveAction: (bookName: string, bookId: string) => void;
 
 };
 
 export default function CartItemCard({
   imgSrc,
   bookName,
+  bookId,
   price,
   school,
   onRemoveAction
@@ -37,14 +38,14 @@ export default function CartItemCard({
 
       {/* Details */}
       <div className="flex-1">
-        <h3 className="font-semibold text-gray-800">{bookName}</h3>
+        <h3 className="font-semibold text-gray-800 text-sm lg:text-[18px]">{bookName}</h3>
         {!school && price !== undefined && price !== null && (
           <p className="text-gray-600">{`$${price?.toFixed(2)}`}</p>
         )}
       </div>
 
 
-        <XMarkIcon onClick={() => onRemoveAction(bookName)} className="text-[#53007B] w-12" />
+        <XMarkIcon onClick={() => onRemoveAction(bookName, bookId)} className="text-[#53007B] w-12" />
     
     </div>
   );

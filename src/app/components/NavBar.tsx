@@ -1,9 +1,9 @@
 "use client"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { checkLoggedIn } from "@/app/actions/checkLoggedIn"
 import Link from "next/link"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid"
+import { signOutAction } from "../actions/authActions"
 
 
 export function NavBar() {
@@ -11,12 +11,13 @@ export function NavBar() {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
-    async function verifyUser() {
-      const loggedIn = await checkLoggedIn();
-      setIsLoggedIn(loggedIn);
-    }
-    verifyUser();
-  }, []);
+      async function verifyUser() {
+        const res = await fetch("/api/auth");
+        const data = await res.json();
+        setIsLoggedIn(data?.loggedIn);
+      }
+      verifyUser();
+    }, []);
     
 
     return (
@@ -25,13 +26,13 @@ export function NavBar() {
                 <Link href="/"><Image src="/sabiyou.png" alt="Sabiyou Logo" width={150} height={150} className="lg:w-20 w-14" /></Link>
                 <ul className="lg:flex gap-x-4 hidden place-items-center place-self-end">
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/">Home</Link></li>
-                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/school/explore">Books</Link></li>
-                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/school/library">Library</Link></li>
-                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/school/cart">Cart</Link></li>
+                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/explore">Explore</Link></li>
+                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/library">Library</Link></li>
+                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/cart">Cart</Link></li>
                     <li className="px-6 py-3 font-medium border-2 border-transparent hover:border-[#53007B] 
                     hover:bg-transparent bg-[#53007B] hover:text-[#53007B] text-white rounded-3xl focus:outline-none 
                     focus:ring-2 focus:ring-[#53007B] focus:ring-offset-2 transition duration-300 ease-in-out">
-                        {isLoggedIn ? <Link href={"/auth/login"}>Logout</Link> : <Link href={"/auth/logout"}>Login</Link>}</li>
+                        {isLoggedIn ? <Link onClick={signOutAction} href={"/auth/login"}>Logout</Link> : <Link href="/auth/login">Login</Link>}</li>
                 </ul>
 
 
@@ -54,9 +55,9 @@ export function NavBar() {
             {isOpen &&
                 <div className="transition-all duration-300 ease-in-out transform lg:hidden flex flex-col bg-white gap-y-10 h-[90vh] pt-12 pl-10 text-[22px] tracking-tighter font-bold overflow-hidden max-h-screen">
                     <Link href="/" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Home</Link>
-                    <Link href="/school/explore" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Books</Link>
-                    <Link href="/school/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Library</Link>
-                    <Link href="/school/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart</Link>
+                    <Link href="/explore" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Explore</Link>
+                    <Link href="/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Library</Link>
+                    <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart</Link>
                     <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
                 </div>
             }
