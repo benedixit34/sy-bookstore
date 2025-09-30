@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid"
 import { signOutAction } from "../actions/authActions"
+import { PrimaryButton, SecondaryButton }from "./ui/WebButton"
 
 
 export function NavBar() {
@@ -22,17 +23,26 @@ export function NavBar() {
 
     return (
         <header className={`bg-white fixed border-b-1 border-zinc-400 w-full font-medium text-[#282829] font-[family-name:var(--font-lexend)] tracking-tighter transition-all duration-300 ease-in-out text-[18px]} z-50`}>
-            <nav className="grid grid-cols-2 justify-center py-6 lg:mx-32 4xl:mx-64 mx-4 sm:mx-10 rounded-2xl">
+            <nav className="grid grid-cols-2 lg:grid-cols-3 justify-center py-6 lg:mx-32 4xl:mx-64 mx-4 sm:mx-10 rounded-2xl">
                 <Link href="/"><Image src="/sabiyou.png" alt="Sabiyou Logo" width={150} height={150} className="lg:w-20 w-14" /></Link>
-                <ul className="lg:flex gap-x-4 hidden place-items-center place-self-end">
+                <ul className="lg:flex gap-x-4 hidden place-items-center place-self-center">
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/">Home</Link></li>
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/explore">Explore</Link></li>
-                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/library">Library</Link></li>
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/cart">Cart</Link></li>
-                    <li className="px-6 py-3 font-medium border-2 border-transparent hover:border-[#53007B] 
-                    hover:bg-transparent bg-[#53007B] hover:text-[#53007B] text-white rounded-3xl focus:outline-none 
-                    focus:ring-2 focus:ring-[#53007B] focus:ring-offset-2 transition duration-300 ease-in-out">
-                        {isLoggedIn ? <Link onClick={signOutAction} href={"/auth/login"}>Logout</Link> : <Link href="/auth/login">Login</Link>}</li>
+                    
+                </ul>
+
+                <ul className="lg:flex gap-x-4 hidden place-items-center place-self-end">
+                    {isLoggedIn ? 
+                    <>
+                    <li><SecondaryButton hyperlink="/library" text="Check Library"/></li>
+                    <li><PrimaryButton hyperlink="#" text="Logout" action={signOutAction} /></li></>:
+                     <>
+                     <li><PrimaryButton hyperlink="/auth/login" text="Login"/></li>
+                     <li><SecondaryButton hyperlink="/auth/register" text="Register"/></li>
+                     </>}
+
+                        
                 </ul>
 
 
@@ -58,7 +68,12 @@ export function NavBar() {
                     <Link href="/explore" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Explore</Link>
                     <Link href="/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Library</Link>
                     <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart</Link>
+                    {isLoggedIn ? <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Logout</Link>:<>
                     <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
+                    <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Register</Link></>
+                    
+                
+                }
                 </div>
             }
 

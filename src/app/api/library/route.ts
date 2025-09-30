@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       line_items,
       mode: "payment",
       customer_email: user.email,
-      success_url: `${baseUrl}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/cart`,
       metadata: { userId },
     });

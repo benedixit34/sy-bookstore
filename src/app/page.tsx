@@ -1,8 +1,9 @@
-import { NavBar } from "./components/NavBar";
+import { NavBar } from "@/app/components/NavBar";
 import { ThemeInit } from "../../.flowbite-react/init"
-import { Hero } from "./components/Hero";
-import { EcomCard } from "./components/ui/EcomCard";
-import { FooterBottom } from "./components/Footer";
+import { Hero } from "@/app/components/Hero";
+import { EcomCard } from "@/app/components/ui/EcomCard";
+import { FooterBottom } from "@/app/components/Footer";
+import { PrimaryButton } from "@/app/components/ui/WebButton";
 
 
 export default function Home() {
@@ -29,14 +30,12 @@ export default function Home() {
       <section className="my-32 container mx-auto font-[lexend]">
         <div className="font-[raleway] grid grid-cols-1 lg:grid-cols-2 border-[0.5px] border-zinc-400 
         rounded-xl shadow-lg mx-4 lg:mx-10 xl:mx-32">
-        <div className="px-4 lg:px-16 content-center py-16">
+        <div className="px-4 lg:px-16 content-center py-16 space-y-10">
           <h1 className="text-3xl font-bold tracking-tighter mb-5">Get Culture Books For Your School</h1>
-          <p className="leading-loose font-regular">Bring culture alive in your classrooms with digital learning resources designed for today’s
+          <p className="leading-loose font-regular font-[lexend] ">Bring culture alive in your classrooms with digital learning resources designed for today’s
             students. Our curated collection of eBooks helps schools introduce children to local traditions,
             folklore, history, and global cultures in a fun and interactive way.</p>
-          <a href="#" className="mt-5 inline-block rounded-lg bg-[#53007B] px-6 py-3.5 text-center font-medium text-white
-         hover:bg-[#53007B]/90 focus:outline-none focus:ring-4 focus:ring-[#53007B]/50 
-         ">Get In Touch</a>
+          <PrimaryButton hyperlink="https://sabiyou.com/contact" text="Get In Touch"/>
 
 
         </div>

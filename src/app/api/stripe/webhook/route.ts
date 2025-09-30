@@ -29,6 +29,7 @@ export async function POST(req: Request) {
       if (userId) {
         try {
           const supabase = await createClient();
+
           const { data: cartItems, error: cartError } = await supabase
             .from("cart")
             .select("book_id")
@@ -40,6 +41,8 @@ export async function POST(req: Request) {
               book: item.book_id,
             }));
             await supabase.from("library").insert(libraryEntries);
+            console.log("Added to library")
+
 
             await supabase.from("cart").delete().eq("user_id", userId);
 
