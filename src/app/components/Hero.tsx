@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PrimaryButton } from "./ui/WebButton";
 
 export function Hero() {
     return (
@@ -15,13 +16,7 @@ export function Hero() {
                         <p className="mb-4 text-gray-500 md:mb-12 lg:mb-5 text-md font-[lexend]">
                             Don&apos;t Wait - Limited Stock at Unbeatable Prices!
                         </p>
-                        <a
-                            href="#"
-                            className="inline-block rounded-lg bg-[#53007B] px-6 py-3.5 text-center font-medium text-white
-         hover:bg-[#53007B]/90 focus:outline-none focus:ring-4 focus:ring-[#53007B]/50 font-[lexend]         "
-                        >
-                            Shop Now
-                        </a>
+                        <PrimaryButton hyperlink="/explore" text="Shop Now" />
                     </div>
 
                     <div className="flex justify-center rounded-2xl flex-col place-content-center w-full">

@@ -1,12 +1,36 @@
+"use client"
+
 import { NavBar } from "@/app/components/NavBar";
 import { ThemeInit } from "../../.flowbite-react/init"
 import { Hero } from "@/app/components/Hero";
 import { EcomCard } from "@/app/components/ui/EcomCard";
 import { FooterBottom } from "@/app/components/Footer";
 import { PrimaryButton } from "@/app/components/ui/WebButton";
+import { useEffect, useState } from "react";
 
 
-export default function Home() {
+export default function Page() {
+   const [books, setBooks] = useState<any[]>([])
+
+   useEffect (() => {
+      const fetchBooks = async () => {
+        const res = await fetch("/api/books")
+        const data = await res.json();
+        if (!res.ok) {
+          console.error("Supabase fetch error:", data.error);
+        }
+        setBooks(data.books ?? []);
+       
+  
+  
+      }
+      fetchBooks()
+    }, [])
+
+    for (const book of books){
+      console.log(book.price)
+
+    }
   return (
     <>
       <ThemeInit />
@@ -16,9 +40,11 @@ export default function Home() {
         <div className="flex flex-col justify-center mx-4 lg:mx-10 xl:mx-32">
         <h1 className="text-5xl font-[raleway] font-bold pb-16 tracking-tight text-center">Latest Books</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-between gap-2 w-full">
-          <EcomCard imgSrc="./Pierogi.png" bookName="Milo's Pierogi: A Krakow Adventure of Flavors and Surprises" />
-          <EcomCard imgSrc="./Kwame.png" bookName="Kwame's Kente Adventure: Threads of Joy from Ghana" />
-          <EcomCard imgSrc="./Chopsticks.png" bookName="The Mismatched Chopsticks: A Tale of Lanterns, Noodles, and New Luck" />
+          {books &&  [...books].reverse().slice(0, 3).map((book)=>
+          <EcomCard key={book.id} bookId={book.id} imgSrc={book.image} bookName={book.name} 
+          action="Add To Cart"  price={book.price} />
+          )}
+          
           
 
 

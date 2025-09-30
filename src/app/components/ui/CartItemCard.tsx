@@ -27,7 +27,6 @@ export default function CartItemCard({
   return (
     <div className="w-full max-w-2xl bg-white rounded-2xl shadow-md border border-zinc-500 flex 
     items-center gap-4 p-4 font-[lexend]">
-      {/* Product Image */}
       <Image
         src={imgSrc.trimStart()}
         alt={bookName}
@@ -36,7 +35,7 @@ export default function CartItemCard({
         height={80}
       />
 
-      {/* Details */}
+
       <div className="flex-1">
         <h3 className="font-semibold text-gray-800 text-sm lg:text-[18px]">{bookName}</h3>
         {!school && price !== undefined && price !== null && (

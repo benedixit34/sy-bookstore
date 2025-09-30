@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/app/utils/supabase/server";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, context: { params: Promise<{ id: string }> }) {
   try {
     const supabase = await createClient();
-    const bookId = params.id;
+    const { id } = await context.params;
 
     const { data: book, error } = await supabase
       .from("book")
       .select("*")
-      .eq("id", bookId)
+      .eq("id", id)
       .single();
 
     if (error) {

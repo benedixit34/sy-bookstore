@@ -4,8 +4,8 @@ import { Card, Button } from "flowbite-react";
 import StarRating from "./StarRating";
 import Link from "next/link";
 import { ToastItem } from "./ToastItem";
-import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { handleSave } from "@/app/utils/handleSave";
 
 
 type EcomCardProps = {
@@ -14,19 +14,14 @@ type EcomCardProps = {
   action?: string;
   library?: boolean;
   bookId?: string;
+  price?: number | string;
   
 };
 
-type LibraryItem = {
-  bookId?: string;
-  bookName: string;
-  imgSrc: string;
-};
-
-
-export function EcomCard({ bookId, imgSrc, bookName, action, library }: EcomCardProps) {
+export function EcomCard({ bookId, imgSrc, bookName, action, library, price }: EcomCardProps) {
 
    const [toastMessage, setToastMessage] = useState<string | null>(null);
+   const [school, setSchool] = useState<boolean>(false);
 
     const showToast = (msg: string, duration = 3000) => {
         setToastMessage(msg);
@@ -34,37 +29,21 @@ export function EcomCard({ bookId, imgSrc, bookName, action, library }: EcomCard
     };
 
 
-   
-  const handleSave = async () => {
+    useEffect(()=>{
+      const isSchool = async () => {
+        const res = await fetch("/api/auth/role")
+        const data = await res.json()
 
-    const res = await fetch("/api/cart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ bookId }),
+        if (!res.ok){
+          setSchool(false)
+        }
+        setSchool(data?.inSchool)
+      }
+      isSchool()
+      
     })
-    const data = await res.json()
-    if (!res.ok){
-      console.error(data.error)
-    }
-    
-    const existing: LibraryItem[] = JSON.parse(Cookies.get("library") || "[]");
-     const alreadyExists = existing.some(
-      (item: LibraryItem) => item.bookName === bookName && item.imgSrc === imgSrc
-    );
 
-    if (alreadyExists) {
-      showToast?.(`${bookName} is already in your library!`);
-      return;
-    }
-    if (!existing.includes({bookId: bookId, bookName: bookName, imgSrc: imgSrc})) {
-      existing.push({bookId: bookId, bookName: bookName, imgSrc: imgSrc});
-      Cookies.set("library", JSON.stringify(existing), { expires: 7 }); // expires in 7 days
-    }
-    
-
-    showToast?.(`${bookName} has been added to your library!`);
-    console.log(Cookies.get("library"));
-  };
+ 
   return (
     <>
     {toastMessage && <ToastItem message={toastMessage} />}
@@ -73,8 +52,8 @@ export function EcomCard({ bookId, imgSrc, bookName, action, library }: EcomCard
       imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
       imgSrc={imgSrc}
     >
-      <Link href="/book/detail">
-        <h5 className="text-lg font-medium tracking-tight text-gray-900 ">
+     <Link href={`/explore/book/${bookId}`}>
+        <h5 className="text-lg font-medium tracking-tight text-gray-900 hover:text-[#53007B]">
           {bookName}
         </h5>
         <p className="text-sm font-extralight text-gray-500 mt-2">
@@ -89,11 +68,11 @@ export function EcomCard({ bookId, imgSrc, bookName, action, library }: EcomCard
       </div>
       <div className="flex items-center justify-between">
         {
-          library == false ?
-          <span className="text-3xl font-bold text-gray-900">$599</span>: null
+          school== false ?
+          <span className="text-3xl font-bold text-gray-900">£{price}</span>: null
         }
 
-        <Button onClick={handleSave}
+        <Button onClick={() => handleSave(bookId, bookName, imgSrc, showToast)}
           className="rounded-lg bg-[#53007B] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#53007B]/80 focus:outline-none 
           focus:ring-4 focus:ring-[#53007B]/40">
           {action}

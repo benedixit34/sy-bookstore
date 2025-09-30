@@ -13,11 +13,11 @@ export function FooterBottom() {
             <div className="space-y-4 lg:space-x-10">
                 <h6 className="text-[25px] font-bold tracking-tight font-[family-name:var(--font-raleway)]">Quick links</h6>
                 <div className="flex flex-col space-y-2 text-[18px]">
-                    <Link href="/about" className="hover:text-[#53007B]">About</Link>
-                    <Link href="/blog" className="hover:text-[#53007B]">Stories</Link>
-                    <Link href="/contact" className="hover:text-[#53007B]">Contact Us</Link>
+                    <Link href="https://sabiyou.com/about" className="hover:text-[#53007B]">About</Link>
+                    <Link href="https://sabiyou.com/blog" className="hover:text-[#53007B]">Stories</Link>
+                    <Link href="https://sabiyou.com/contact" className="hover:text-[#53007B]">Contact Us</Link>
                     <Link href="/store" className="hover:text-[#53007B]">Stores</Link>
-                    <Link href="/community" className="hover:text-[#53007B]">Community</Link>
+                    <Link href="https://sabiyou.com/community" className="hover:text-[#53007B]">Community</Link>
                 </div>
             </div>
 
@@ -25,9 +25,9 @@ export function FooterBottom() {
             <div className="space-y-4 lg:space-x-10">
                 <h6 className="text-[25px] font-bold tracking-tigh font-[family-name:var(--font-raleway)]">Other links</h6>
                 <div className="flex flex-col space-y-2 text-[18px]">
-                    <Link href="/privacy" className="hover:text-[#53007B]">Privacy</Link>
-                    <Link href="/terms" className="hover:text-[#53007B]">Terms and Conditions</Link>
-                    <Link href="/disclaimer" className="hover:text-[#53007B]">Disclaimer</Link>
+                    <Link href="https://sabiyou.com/privacy" className="hover:text-[#53007B]">Privacy</Link>
+                    <Link href="https://sabiyou.com/terms" className="hover:text-[#53007B]">Terms and Conditions</Link>
+                    <Link href="https://sabiyou.com/disclaimer" className="hover:text-[#53007B]">Disclaimer</Link>
                 </div>
             </div>
 
