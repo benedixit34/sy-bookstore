@@ -3,9 +3,28 @@ import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import Link from "next/link";
 import { signUpAction } from "@/app/actions";
+import  { useState, useEffect } from "react"
+import { redirect } from "next/navigation";
 
 
-export default function UserForm() {
+export default function Page() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  
+  
+    useEffect(() => {
+      async function verifyUser() {
+          const res = await fetch("/api/auth");
+          const data = await res.json();
+          setIsLoggedIn(data?.loggedIn);
+        }
+        verifyUser();
+  
+    })
+  
+    if (isLoggedIn){
+      redirect("/")
+  
+    }
     return (
         <div className="min-h-[100vh]">
             <ThemeInit />
