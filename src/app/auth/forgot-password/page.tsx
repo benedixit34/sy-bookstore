@@ -25,6 +25,7 @@ const customTheme = createTheme({
 
 
 export default function Page() {
+  
     return (
        <ThemeProvider theme={customTheme}>
             <ThemeInit />

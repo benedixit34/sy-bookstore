@@ -29,22 +29,18 @@ export async function POST(req: Request) {
       if (userId) {
         try {
           const supabase = await createClient();
-
-          // 1️⃣ Get all cart items for the user
           const { data: cartItems, error: cartError } = await supabase
             .from("cart")
             .select("book_id")
             .eq("user_id", userId);
 
           if (!cartError && cartItems && cartItems.length > 0) {
-            // 2️⃣ Add to library
             const libraryEntries = cartItems.map(item => ({
               user: userId,
               book: item.book_id,
             }));
             await supabase.from("library").insert(libraryEntries);
 
-            // 3️⃣ Clear cart
             await supabase.from("cart").delete().eq("user_id", userId);
 
             console.log(`Cart cleared and books added to library for user ${userId}`);
