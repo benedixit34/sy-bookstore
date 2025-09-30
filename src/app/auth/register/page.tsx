@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";

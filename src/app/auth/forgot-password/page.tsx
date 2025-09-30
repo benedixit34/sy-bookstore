@@ -1,3 +1,6 @@
+"use client"
+
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, Label, TextInput, ThemeProvider } from "flowbite-react";
@@ -5,7 +8,8 @@ import { ThemeInit } from "../../../../.flowbite-react/init";
 import { createTheme } from "flowbite-react";
 import { forgotPasswordAction } from "@/app/actions/authActions";
 import Form from "next/form";
-
+import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 
 
 
@@ -25,6 +29,22 @@ const customTheme = createTheme({
 
 
 export default function Page() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  
+    useEffect(() => {
+      async function verifyUser() {
+          const res = await fetch("/api/auth");
+          const data = await res.json();
+          setIsLoggedIn(data?.loggedIn);
+        }
+        verifyUser();
+  
+    })
+  
+    if (isLoggedIn){
+      redirect("/")
+  
+    }
   
     return (
        <ThemeProvider theme={customTheme}>
