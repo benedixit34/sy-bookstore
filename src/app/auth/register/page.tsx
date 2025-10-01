@@ -7,6 +7,7 @@ import Link from "next/link";
 import { signUpAction } from "@/app/actions";
 import  { useState, useEffect } from "react"
 import { redirect } from "next/navigation";
+import { NavBar } from "@/app/components/NavBar"
 
 
 export default function Page() {
@@ -30,8 +31,9 @@ export default function Page() {
     return (
         <div className="min-h-[100vh]">
             <ThemeInit />
+            <NavBar />
           
-            <section className="font-[lexend] bg-yellow-50 flex justify-center min-h-[100vh]">
+            <section className="font-[lexend] bg-yellow-50 flex justify-center pt-30 min-h-[100vh]">
                 <div className="flex flex-col justify-center py-16">
                     <div className="w-full place-items-center flex flex-col">
                       <Link href="/" className="mb-8 self-center">

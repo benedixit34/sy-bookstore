@@ -8,17 +8,25 @@ import Cookies from "js-cookie";
 import { Button } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { loadStripe } from '@stripe/stripe-js';
+import { redirect } from "next/navigation";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function Page() {
   const [library, setLibrary] = useState<any[]>([]);
   const [visible, setVisible] = useState<boolean>(true);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
 
   
  
   useEffect(() => {
     const cookieLibrary = Cookies.get("library");
+    const verifyUser = async () => {
+      const res = await fetch("/api/auth")
+      const data = await res.json()
+      setIsLoggedIn(data.loggedIn)
+
+    }
     const getCartDB = async () => {
         try {
           const res = await fetch("/api/cart");
@@ -54,6 +62,8 @@ export default function Page() {
           console.error("Failed to fetch cart from DB", err);
         }
       };
+
+    verifyUser()
 
     if (cookieLibrary) {
       try {
@@ -148,7 +158,9 @@ export default function Page() {
         )}
         {library.length > 0 && (
           <div className="mt-4 font-[lexend]">
-            <Button onClick={handleCartAction} className="bg-[#53007B] mt-4">Proceed to Checkout</Button>
+            <Button onClick={isLoggedIn ? () => handleCartAction
+              : () => {redirect("/auth/login")}
+            } className="bg-[#53007B] mt-4">Proceed to Checkout</Button>
           </div>
         )}
       </div>

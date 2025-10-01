@@ -52,7 +52,7 @@ export default function Page() {
             <ThemeInit />
             <NavBar />
           
-            <section className="font-[lexend] bg-yellow-50 flex justify-center min-h-[100vh]">
+            <section className="font-[lexend] bg-yellow-50 flex justify-center pt-30 min-h-[100vh]">
                 <div className="flex flex-col justify-center py-16">
                     <div className="w-full place-items-center flex flex-col">
                       <Link href="/" className="mb-8 self-center">
@@ -61,7 +61,7 @@ export default function Page() {
                          tracking-tight font-[raleway]">Login To Store</h1>
                     </div>
                     
-                    <Card className="w-sm lg:w-md h-96 mx-auto border-gray-900">
+                    <Card className="w-sm lg:w-md h-full mx-auto border-gray-900">
                         
                           <form className="flex flex-col gap-4">
                             <div>

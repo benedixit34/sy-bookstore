@@ -13,11 +13,7 @@ export async function handleSave(bookId?: string, bookName?: string, imgSrc?: st
     body: JSON.stringify({ bookId }),
   });
 
-  const data = await res.json();
-  if (!res.ok) {
-    console.error(data.error);
-    return;
-  }
+  if (!res.ok) return
 
   const existing: LibraryItem[] = JSON.parse(Cookies.get("library") || "[]");
   const alreadyExists = existing.some(
