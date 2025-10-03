@@ -25,3 +25,21 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
+
+
+export async function DELETE(req: Request, context: { params: Promise<{ id: string }> }) {
+  try {
+    const supabase = await createClient();
+    const { id } = await context.params;
+
+    const { error } = await supabase.from("book").delete().eq("id", id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ message: "Book deleted successfully" });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
