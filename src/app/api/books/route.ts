@@ -15,6 +15,17 @@ const b2 = new S3Client({
 
 const BUCKET = process.env.B2_BUCKET!;
 
+export async function GET() {
+  const supabase = await createClient();
+  const { data: books, error } = await supabase.from("book").select("*");
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ books });
+}
+
 export async function POST(req: Request) {
   try {
     const supabase = await createClient();
