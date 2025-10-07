@@ -1,8 +1,8 @@
-import { FooterBottom } from "@/app/components/Footer"
-import { NavBar } from "@/app/components/NavBar"
-import { LibraryCard } from "@/app/components/ui/LibraryCard"
+import { FooterBottom } from "@/components/Footer"
+import { NavBar } from "@/components/NavBar"
+import { LibraryCard } from "@/components/ui/LibraryCard"
 import { ThemeInit } from "../../../.flowbite-react/init"
-import { createClient } from "@/app/utils/supabase/server"
+import { createClient } from "@/utils/supabase/server"
 import { redirect } from "next/navigation"
 
 export default async function LibraryPage() {

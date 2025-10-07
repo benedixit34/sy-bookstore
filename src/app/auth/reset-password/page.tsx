@@ -31,7 +31,7 @@ const customTheme = createTheme({
 
 
 
-export default function ResetPasswordPage() {
+export default function Page() {
   
 
 

@@ -6,7 +6,8 @@ type LibraryItem = {
   imgSrc: string;
 };
 
-export async function handleSave(bookId?: string, bookName?: string, imgSrc?: string, showToast?: (msg: string) => void) {
+export async function handleSave(bookId?: string, bookName?: string, 
+                                imgSrc?: string, showToast?: (msg: string) => void) {
   const res = await fetch("/api/cart", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

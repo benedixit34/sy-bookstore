@@ -3,20 +3,17 @@ import { createClient } from "@/app/utils/supabase/server";
 
 export async function GET() {
   const supabase = await createClient();
-  const {data: { user }, error: userError,} = await supabase.auth.getUser();
- 
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
 
   if (userError || !user) {
-    return NextResponse.json({ inSchool: false });
+    return NextResponse.json({ isSchoolAdmin: false });
   }
-  const { data: schoolData, error: schoolError } = await supabase
-    .from("school")
-    .select("id")
-    .eq("user", user.id)
 
-  if (schoolError) {
-     return NextResponse.json({ inSchool: false });
-  }
-  return NextResponse.json({ inSchool: Boolean(schoolData) });
- 
+  const role = user.user_metadata?.role;
+
+  return NextResponse.json({ isSchoolAdmin: role === "school_admin" });
 }

@@ -7,10 +7,12 @@ import Link from "next/link";
 type Book = {
   id: number;
   name: string;
+  description: string;
   file: string;
   price: number;
   image: string;
 };
+
 
 async function fetchBooks(): Promise<Book[]> {
   const res = await fetch("/api/books");
@@ -19,24 +21,28 @@ async function fetchBooks(): Promise<Book[]> {
   return data.books;
 }
 
+// Delete book
 async function deleteBook(id: number) {
-  const res = await fetch(`/api/books/${id}`, {
-    method: "DELETE",
-  });
+  const res = await fetch(`/api/books/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete book");
   return id;
 }
 
-async function addOrEditBook(formData: FormData) {
-  const res = await fetch("/api/books", {
-    method: "POST",
-    body: formData, // send files directly
+// Add/Edit book
+async function saveBook(formData: FormData, editBookId: number | null) {
+  const url = editBookId ? `/api/books/${editBookId}` : "/api/books";
+  const method = editBookId ? "PATCH" : "POST";
+
+  const res = await fetch(url, {
+    method,
+    body: formData,
   });
+
   if (!res.ok) throw new Error("Failed to save book");
   return res.json();
 }
 
-export default function AdminPage() {
+export default function Page() {
   const [showForm, setShowForm] = useState(false);
   const [editBookId, setEditBookId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,10 +55,13 @@ export default function AdminPage() {
     queryFn: fetchBooks,
   });
 
-  const addOrEditMutation = useMutation({
-    mutationFn: addOrEditBook,
+  const saveMutation = useMutation({
+    mutationFn: ({ formData, id }: { formData: FormData; id: number | null }) =>
+      saveBook(formData, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["books"] });
+      setShowForm(false);
+      setEditBookId(null);
     },
   });
 
@@ -70,14 +79,15 @@ export default function AdminPage() {
     book.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const currentBook = editBookId
+    ? books.find((b) => b.id === editBookId)
+    : null;
+
   return (
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <div className="space-y-3">
-          <h1 className="text-5xl font-bold font-[raleway]">Books</h1>
-          <p className="text-gray-600">Manage books in the system</p>
-        </div>
+        <h1 className="text-5xl font-bold font-[raleway]">Books</h1>
         <button
           onClick={() => {
             setEditBookId(null);
@@ -119,7 +129,7 @@ export default function AdminPage() {
         )}
       </div>
 
-      {/* Table */}
+      {/* Books Table */}
       <div className="overflow-x-auto bg-white shadow rounded-lg">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -149,8 +159,8 @@ export default function AdminPage() {
                   </td>
                   <td className="p-3">{book.name}</td>
                   <td className="p-3">${book.price}</td>
-                  <td className="p-3">
-                    <Link href={book.file}>Download</Link>
+                  <td className="p-3 font-medium text-[#53007B] hover:text-[#53007B]/50">
+                    {book.file && <Link href={book.file}>Download</Link>}
                   </td>
                   <td className="p-3">
                     <button
@@ -198,10 +208,13 @@ export default function AdminPage() {
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
               {editBookId ? "Edit Book" : "Add New Book"}
             </h2>
+
             <form
-              action={(formData: FormData) =>
-                addOrEditMutation.mutate(formData)
-              }
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                saveMutation.mutate({ formData, id: editBookId });
+              }}
               encType="multipart/form-data"
               className="space-y-5"
             >
@@ -213,11 +226,7 @@ export default function AdminPage() {
                 <input
                   type="text"
                   name="name"
-                  defaultValue={
-                    editBookId
-                      ? books.find((b) => b.id === editBookId)?.name
-                      : ""
-                  }
+                  defaultValue={currentBook?.name || ""}
                   required
                   className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50"
                 />
@@ -231,11 +240,7 @@ export default function AdminPage() {
                 <input
                   type="number"
                   name="price"
-                  defaultValue={
-                    editBookId
-                      ? books.find((b) => b.id === editBookId)?.price
-                      : ""
-                  }
+                  defaultValue={currentBook?.price || ""}
                   required
                   className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50"
                 />
@@ -269,6 +274,20 @@ export default function AdminPage() {
                 />
               </div>
 
+              {/* Description */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  defaultValue={currentBook?.description || ""}
+                  required
+                  rows={4}
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50"
+                />
+              </div>
+
               <div className="flex justify-end gap-3 pt-4">
                 <button
                   type="button"
@@ -282,9 +301,14 @@ export default function AdminPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition"
+                  disabled={saveMutation.isPending}
+                  className="px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition disabled:opacity-50"
                 >
-                  {editBookId ? "Update" : "Save"}
+                  {saveMutation.isPending
+                    ? "Saving..."
+                    : editBookId
+                    ? "Update"
+                    : "Save"}
                 </button>
               </div>
             </form>

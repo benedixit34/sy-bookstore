@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/app/utils/supabase/server";
+import { CloudflareSave } from "@/app/utils/cloudflareSave";
 
-export async function GET(req: Request, context: { params: Promise<{ id: string }> }) {
+const IMAGE_BUCKET = "sy2025";
+const FILE_BUCKET = "sy-file";
+
+// GET single book
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const supabase = await createClient();
     const { id } = await context.params;
@@ -26,8 +34,64 @@ export async function GET(req: Request, context: { params: Promise<{ id: string 
   }
 }
 
+export async function PATCH(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
+  try {
+    const supabase = await createClient();
+    const { id } = await context.params;
 
-export async function DELETE(req: Request, context: { params: Promise<{ id: string }> }) {
+    const formData = await req.formData();
+
+    const updates: any = {
+      name: formData.get("name"),
+      description: formData.get("description"),
+      price: formData.get("price"),
+    };
+
+    const imageFile = formData.get("image") as File | null;
+    const bookFile = formData.get("file") as File | null;
+
+    if (imageFile && imageFile.size > 0) {
+      const imageUrl = await CloudflareSave(imageFile, IMAGE_BUCKET, true);
+      if (imageUrl) updates.image = imageUrl;
+    }
+
+    if (bookFile && bookFile.size > 0) {
+      const fileUrl = await CloudflareSave(bookFile, FILE_BUCKET, false);
+      if (fileUrl) updates.file = fileUrl;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return NextResponse.json(
+        { error: "No fields to update" },
+        { status: 400 }
+      );
+    }
+
+    const { data, error } = await supabase
+      .from("book")
+      .update(updates)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ book: data });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
+
+// DELETE book
+export async function DELETE(
+  req: Request,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const supabase = await createClient();
     const { id } = await context.params;

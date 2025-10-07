@@ -1,11 +1,11 @@
 "use client"
 
-import { NavBar } from "@/app/components/NavBar";
+import { NavBar } from "@/components/NavBar";
 import { ThemeInit } from "../../.flowbite-react/init"
-import { Hero } from "@/app/components/Hero";
-import { EcomCard } from "@/app/components/ui/EcomCard";
-import { FooterBottom } from "@/app/components/Footer";
-import { PrimaryButton } from "@/app/components/ui/WebButton";
+import { Hero } from "@/components/Hero";
+import { EcomCard } from "@/components/ui/EcomCard";
+import { FooterBottom } from "@/components/Footer";
+import { PrimaryButton } from "@/components/ui/WebButton";
 import { useEffect, useState } from "react";
 
 

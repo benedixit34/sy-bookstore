@@ -1,187 +1,172 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function AdminPage() {
-  const [showForm, setShowForm] = useState(false);
-  const [editSchoolId, setEditSchoolId] = useState<number | null>(null);
-  const [schools, setSchools] = useState([
-    { id: 1, name: "Harvard University", location: "USA", type: "Private" },
-    { id: 2, name: "University of Lagos", location: "Nigeria", type: "Public" },
-    { id: 3, name: "Oxford University", location: "UK", type: "Private" },
-  ]);
-
-  const handleAddOrEditSchool = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const newSchool = {
-      id: editSchoolId ? editSchoolId : schools.length + 1,
-      name: formData.get("name") as string,
-      location: formData.get("location") as string,
-      type: formData.get("type") as string,
-    };
-
-    if (editSchoolId) {
-      setSchools(
-        schools.map((s) => (s.id === editSchoolId ? { ...newSchool } : s))
-      );
-    } else {
-      setSchools([...schools, newSchool]);
-    }
-
-    setShowForm(false);
-    setEditSchoolId(null);
-    e.currentTarget.reset();
+type User = {
+  id: string;
+  email: string;
+  created_at: string;
+  user_metadata?: {
+    name?: string;
+    role?: string;
   };
+};
 
-  const handleDeleteSchool = (id: number) => {
-    setSchools(schools.filter((school) => school.id !== id));
-  };
+async function fetchUsers(): Promise<User[]> {
+  const res = await fetch("/api/users");
+  if (!res.ok) throw new Error("Failed to fetch users");
+  const data = await res.json();
+  return data.users;
+}
 
-  const handleEditSchool = (id: number) => {
-    setEditSchoolId(id);
-    setShowForm(true);
-  };
+// Add user
+async function addUser(user: { email: string; password: string; name: string }) {
+  const res = await fetch("/api/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user),
+  });
+  if (!res.ok) throw new Error("Failed to add user");
+  return res.json();
+}
+
+// Delete user
+async function deleteUser(id: string) {
+  const res = await fetch(`/api/users/${id}`, { method: "DELETE" });
+  if (!res.ok) throw new Error("Failed to delete user");
+  return id;
+}
+
+export default function UsersPage() {
+  const queryClient = useQueryClient();
+
+  const { data: users = [], isLoading, error } = useQuery({
+    queryKey: ["users"],
+    queryFn: fetchUsers,
+  });
+
+  const addMutation = useMutation({
+    mutationFn: addUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  if (isLoading) return <p>Loading users...</p>;
+  if (error) return <p>Error loading users</p>;
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="text-gray-600">Manage schools in the system</p>
+      <h1 className="text-5xl font-bold mb-6">Users</h1>
+
+      {/* Add User Form */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          addMutation.mutate({ email, password, name });
+          setEmail("");
+          setName("");
+          setPassword("");
+        }}
+        className="mb-6 p-4 bg-yellow-100 rounded-lg py-10 px-10"
+      >
+        <h2 className="text-xl font-semibold mb-4">Add User</h2>
+        <div className="flex gap-3">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="px-3 py-2 border rounded w-1/3 border-gray-400"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="px-3 py-2 border rounded w-1/3 border-gray-400"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="px-3 py-2 border rounded w-1/3 border-gray-400"
+          />
+          <button
+            type="submit"
+            disabled={addMutation.isPending}
+            className="bg-[#53007B] text-white px-4 py-2 rounded hover:bg-[#53007B]/70"
+          >
+            {addMutation.isPending ? "Adding..." : "Add"}
+          </button>
         </div>
+      </form>
 
-        <button
-          onClick={() => {
-            setEditSchoolId(null);
-            setShowForm(true);
-          }}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
-        >
-          + Add School
-        </button>
-      </div>
-
+      {/* Users Table */}
       <div className="overflow-x-auto bg-white shadow rounded-lg">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-100 text-gray-700">
               <th className="p-3">ID</th>
-              <th className="p-3">School Name</th>
-              <th className="p-3">Location</th>
-
+              <th className="p-3">Email</th>
+              <th className="p-3">Name</th>
+              <th className="p-3">Role</th>
+              <th className="p-3">Created At</th>
               <th className="p-3">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {schools.map((school, index) => (
-              <tr
-                key={school.id}
-                className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
-              >
-                <td className="p-3">{school.id}</td>
-                <td className="p-3">{school.name}</td>
-                <td className="p-3">{school.location}</td>
-    
-                <td className="p-3">
-                  <button
-                    onClick={() => handleEditSchool(school.id)}
-                    className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteSchool(school.id)}
-                    className="ml-2 px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
+            {users.length > 0 ? (
+              users.map((user, index) => (
+                <tr
+                  key={user.id}
+                  className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                >
+                  <td className="p-3">{user.id}</td>
+                  <td className="p-3">{user.email}</td>
+                  <td className="p-3">{user.user_metadata?.name || "-"}</td>
+                  <td className="p-3">{user.user_metadata?.role || "user"}</td>
+                  <td className="p-3">
+                    {new Date(user.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => deleteMutation.mutate(user.id)}
+                      disabled={deleteMutation.isPending}
+                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                    >
+                      {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="p-4 text-center text-gray-500">
+                  No users found
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
-
-      {/* Modal Form */}
-      {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div
-            onClick={() => {
-              setShowForm(false);
-              setEditSchoolId(null);
-            }}
-            className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-          ></div>
-
-          {/* Form Card */}
-          <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md p-8 z-10">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-              {editSchoolId ? "Edit School" : "Add New School"}
-            </h2>
-            <form onSubmit={handleAddOrEditSchool} className="space-y-5">
-              {/* School Name */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  School Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  defaultValue={
-                    editSchoolId
-                      ? schools.find((s) => s.id === editSchoolId)?.name
-                      : ""
-                  }
-                  required
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-                />
-              </div>
-
-              {/* Location */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  name="location"
-                  defaultValue={
-                    editSchoolId
-                      ? schools.find((s) => s.id === editSchoolId)?.location
-                      : ""
-                  }
-                  required
-                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
-                />
-              </div>
-
-              {/* Type */}
-              
-
-              {/* Actions */}
-              <div className="flex justify-end gap-3 pt-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowForm(false);
-                    setEditSchoolId(null);
-                  }}
-                  className="px-5 py-2.5 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition"
-                >
-                  {editSchoolId ? "Update" : "Save"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
+

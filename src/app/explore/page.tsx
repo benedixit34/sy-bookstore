@@ -8,10 +8,10 @@ import {
   DropdownDivider,
 } from "flowbite-react";
 import { ThemeInit } from "../../../.flowbite-react/init";
-import { NavBar } from "@/app/components/NavBar";
-import { EcomCard } from "@/app/components/ui/EcomCard";
-import { FooterBottom } from "@/app/components/Footer";
-import { ToastItem } from "@/app/components/ui/ToastItem";
+import { NavBar } from "@/components/NavBar";
+import { EcomCard } from "@/components/ui/EcomCard";
+import { FooterBottom } from "@/components/Footer";
+import { ToastItem } from "@/components/ui/ToastItem";
 import { useState, useEffect } from "react";
 
 export default function Page() {
