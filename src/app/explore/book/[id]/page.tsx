@@ -1,12 +1,12 @@
 "use client";
 
-import { FooterBottom } from "@/app/components/Footer";
-import { NavBar } from "@/app/components/NavBar";
+import { FooterBottom } from "@/components/Footer";
+import { NavBar } from "@/components/NavBar";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { PrimaryButton } from "@/app/components/ui/WebButton";
-import { handleSave } from "@/app/utils/handleSave";
+import { PrimaryButton } from "@/components/ui/WebButton";
+import { handleSave } from "@/utils/handleSave";
 
 export default function Page() {
   const params = useParams();

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button, Card, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import { createTheme } from "flowbite-react";
-import { forgotPasswordAction } from "@/app/actions/authActions";
+import { forgotPasswordAction } from "@/utils/authActions";
 import Form from "next/form";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";

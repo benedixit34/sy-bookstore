@@ -2,16 +2,8 @@
 import Image from "next/image";
 import React from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { CartItemProps } from "@/lib/types/components";
 
-type CartItemProps = {
-  imgSrc: string;
-  bookName: string;
-  bookId: string;
-  price?: number;
-  school?: boolean;
-  onRemoveAction: (bookName: string, bookId: string) => void;
-
-};
 
 export default function CartItemCard({
   imgSrc,

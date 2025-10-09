@@ -1,7 +1,7 @@
 "use server";
 
-import { encodedRedirect } from "../utils";
-import { createClient } from "../utils/supabase/server"
+import { encodedRedirect } from "@/app/utils";
+import { createClient } from "@/utils/supabase/server"
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -22,6 +22,7 @@ export const signUpAction = async (formData: FormData) => {
     email,
     password,
     options: {
+      data: { name },
       emailRedirectTo: `${origin}/auth/callback`,
     },
   });

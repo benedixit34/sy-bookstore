@@ -1,6 +1,5 @@
-// app/api/cart/route.ts
 import { NextResponse } from "next/server";
-import { createClient } from "@/app/utils/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 
 
 export async function POST(req: Request) {

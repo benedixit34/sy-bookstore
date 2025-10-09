@@ -1,63 +1,62 @@
 "use client";
 
-import {
-  TextInput,
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownDivider,
-} from "flowbite-react";
+import { TextInput, Button } from "flowbite-react";
 import { ThemeInit } from "../../../.flowbite-react/init";
 import { NavBar } from "@/components/NavBar";
 import { EcomCard } from "@/components/ui/EcomCard";
 import { FooterBottom } from "@/components/Footer";
 import { ToastItem } from "@/components/ui/ToastItem";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useToast } from "@/hooks/useToast";
 
 export default function Page() {
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [books, setBooks] = useState<any[]>([]);
+  const { toastMessage, showToast } = useToast();
   const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    const fetchBooks = async () => {
+  const {
+    data: booksData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["books"],
+    queryFn: async () => {
       const res = await fetch("/api/books");
+      if (!res.ok) throw new Error("Failed to fetch books");
       const data = await res.json();
-      if (!res.ok) {
-        console.error("Supabase fetch error:", data.error);
-      }
-      setBooks(data.books ?? []);
-    };
-    fetchBooks();
-  }, []);
-  if (!books) {
+      return data.books ?? [];
+    },
+  });
+
+  const books = booksData ?? [];
+
+  if (isLoading) {
     return (
       <>
         <NavBar />
         <div className="flex items-center justify-center h-screen">
-          <p className="text-gray-500">Loading book...</p>
+          <p className="text-gray-500">Loading books...</p>
         </div>
         <FooterBottom />
       </>
     );
   }
 
-  const showToast = (msg: string, duration = 3000) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), duration);
-  };
+  if (isError) {
+    showToast("Error fetching books.");
+  }
 
-  const filteredBooks = books.filter(
-    (book: any) =>
-      book.name.toLowerCase().includes(query.toLowerCase())
+  // ✅ Filter logic
+  const filteredBooks = books.filter((book: any) =>
+    book.name.toLowerCase().includes(query.toLowerCase())
   );
 
-
-   const suggestions = query
-    ? books.filter((book: any) =>
-        book.name.toLowerCase().includes(query.toLowerCase())
-      )
-    : []
+  const suggestions =
+    query.length > 0
+      ? books.filter((book: any) =>
+          book.name.toLowerCase().includes(query.toLowerCase())
+        )
+      : [];
 
   return (
     <>
@@ -75,8 +74,9 @@ export default function Page() {
             Find your next favorite read today!
           </p>
         </div>
+
         <div className="grid lg:grid-cols-2 grid-cols-1 place-items-center content-center gap-y-6 justify-center mt-16 mx-4 xl:mx-32">
-          <form className="w-full mx-auto">
+          <form className="w-full mx-auto" onSubmit={(e) => e.preventDefault()}>
             <label className="mb-2 text-sm font-medium text-gray-900 sr-only">
               Search
             </label>
@@ -87,33 +87,38 @@ export default function Page() {
                 sizing="lg"
                 placeholder="Search For Books"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)} 
+                onChange={(e) => setQuery(e.target.value)}
                 required
               />
 
               {query && (
-              <ul className="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md w-full mt-1 max-h-60 overflow-y-auto">
-                {suggestions.length > 0 ? (
-                  suggestions.map((book: any) => (
-                    <li
-                      key={book.id}
-                      className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                      onClick={() => setQuery(book.name)} // fill input
-                    >
-                      {book.name}
+                <ul className="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md w-full mt-1 max-h-60 overflow-y-auto">
+                  {suggestions.length > 0 ? (
+                    suggestions.map((book: any) => (
+                      <li
+                        key={book.id}
+                        className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                        onClick={() => setQuery(book.name)}
+                      >
+                        {book.name}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="px-4 py-2 text-gray-500">
+                      No matches found
                     </li>
-                  ))
-                ) : (
-                  <li className="px-4 py-2 text-gray-500">
-                    No matches found
-                  </li>
-                )}
-              </ul>
-            )}
+                  )}
+                </ul>
+              )}
+
               <Button
-                type="submit" onClick={() => setQuery("")}
+                type="submit"
+                onClick={() => {
+                  if (query.trim() === "") showToast("Please enter a search term");
+                  setQuery("");
+                }}
                 className="text-white absolute end-2.5 bottom-2.5 bg-[#53007B]/90 hover:bg-[#53007B] focus:ring-4 focus:outline-none 
-              focus:ring-[#53007B]/40 font-medium rounded-lg text-sm px-4 py-2"
+                focus:ring-[#53007B]/40 font-medium rounded-lg text-sm px-4 py-2"
               >
                 Search
               </Button>
@@ -132,7 +137,6 @@ export default function Page() {
                 imgSrc={book.image}
                 bookName={book.name}
                 action="Save In Library"
-                library={true}
                 price={book.price}
               />
             ))

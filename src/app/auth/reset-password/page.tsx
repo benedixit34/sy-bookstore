@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button, Card, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import { createTheme } from "flowbite-react";
-import { resetPasswordAction } from "@/app/actions/authActions";
+import { resetPasswordAction } from "@/utils/authActions";
 import Form from "next/form";
 import { useSearchParams } from "next/navigation";
 

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Button, Card, Checkbox, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import { createTheme } from "flowbite-react";
-import { NavBar } from "@/app/components/NavBar"
-import { signInAction } from "@/app/actions/authActions";
+import { NavBar } from "@/components/NavBar"
+import { signInAction } from "@/utils/authActions";
 import { useEffect, useState } from 'react'
 import { redirect } from "next/navigation";
 
@@ -55,13 +55,11 @@ export default function Page() {
             <section className="font-[lexend] bg-yellow-50 flex justify-center pt-30 min-h-[100vh]">
                 <div className="flex flex-col justify-center py-16">
                     <div className="w-full place-items-center flex flex-col">
-                      <Link href="/" className="mb-8 self-center">
-                      <Image src="/sabiyou.png" height={70} width={70} alt="Logo" /></Link>
                         <h1 className="text-center mb-8 text-4xl font-bold leading-none
                          tracking-tight font-[raleway]">Login To Store</h1>
                     </div>
                     
-                    <Card className="w-sm lg:w-md h-full mx-auto border-gray-900">
+                    <Card className="w-sm lg:w-md h-full mx-auto border-gray-300">
                         
                           <form className="flex flex-col gap-4">
                             <div>

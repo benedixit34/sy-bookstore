@@ -15,13 +15,12 @@ const navItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // ✅ create query client once
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex h-screen font-[lexend]">
-        {/* Sidebar */}
+  
         <div className="w-64 bg-[#53007B] text-white p-4">
           <Link href="/">
             <Image
@@ -38,7 +37,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 key={item.href}
                 href={item.href}
                 className={`p-2 rounded ${
-                  pathname === item.href ? "bg-amber-500" : "hover:bg-gray-800"
+                  pathname === item.href ? "bg-yellow-300" : "hover:bg-yellow-300 font-bold"
                 }`}
               >
                 {item.name}

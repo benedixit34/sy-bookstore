@@ -12,8 +12,8 @@ const customTheme = createTheme({
 export function ToastItem({ message }: { message: string }) {
   return (
     <ThemeProvider theme={customTheme}>
-      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg px-4 ">
-        <Toast className="bg-[#f3e8ff]/90 rounded-lg shadow-lg">
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg py-6 px-4 ">
+        <Toast className="border border-gray-400 rounded-lg shadow-lg">
           <div className="ml-3 text-sm font-normal font-[lexend]">{message}</div>
           <ToastToggle />
         </Toast>

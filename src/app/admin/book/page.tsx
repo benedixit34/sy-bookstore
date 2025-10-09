@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { PrimaryButton } from "@/components/ui/WebButton";
 
 type Book = {
   id: number;
@@ -85,18 +86,13 @@ export default function Page() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-5xl font-bold font-[raleway]">Books</h1>
-        <button
-          onClick={() => {
+        <h1 className="text-4xl font-bold text-[#53007B] font-[raleway]">Books</h1>
+        <PrimaryButton hyperlink="#" text="Add Book" action={() => {
             setEditBookId(null);
             setShowForm(true);
-          }}
-          className="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
-        >
-          + Add Book
-        </button>
+          }} />
+        
       </div>
 
       {/* Search */}
@@ -168,14 +164,14 @@ export default function Page() {
                         setEditBookId(book.id);
                         setShowForm(true);
                       }}
-                      className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+                      className="px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 font-bold"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => deleteMutation.mutate(book.id)}
                       disabled={deleteMutation.isPending}
-                      className="ml-2 px-3 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600 disabled:opacity-50"
+                      className="ml-2 px-3 py-1 bg-red-500 text-white font-bold rounded text-sm hover:bg-red-600 disabled:opacity-50"
                     >
                       {deleteMutation.isPending ? "Deleting..." : "Delete"}
                     </button>
@@ -302,7 +298,7 @@ export default function Page() {
                 <button
                   type="submit"
                   disabled={saveMutation.isPending}
-                  className="px-5 py-2.5 bg-green-600 text-white font-medium rounded-lg shadow hover:bg-green-700 transition disabled:opacity-50"
+                  className="px-5 py-2.5 bg-[#53007B] text-white font-medium rounded-lg shadow hover:bg-[#53007B]/70 transition disabled:opacity-50"
                 >
                   {saveMutation.isPending
                     ? "Saving..."

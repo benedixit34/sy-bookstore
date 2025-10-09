@@ -6,21 +6,14 @@ import Link from "next/link";
 import { ToastItem } from "./ToastItem";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { handleSave } from "@/app/utils/handleSave";
+import { handleSave } from "@/utils/handleSave";
+import { EcomCardProps } from "@/lib/types/components"
 
-type EcomCardProps = {
-  imgSrc: string;
-  bookName: string;
-  action?: string;
-  library?: boolean;
-  bookId?: string;
-  price?: number | string;
-};
 
 async function fetchRole() {
   const res = await fetch("/api/auth/role");
   if (!res.ok) throw new Error("Failed to fetch role");
-  return res.json(); // { isSchoolAdmin: boolean }
+  return res.json();
 }
 
 export function EcomCard({
@@ -28,7 +21,6 @@ export function EcomCard({
   imgSrc,
   bookName,
   action,
-  library,
   price,
 }: EcomCardProps) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -71,7 +63,7 @@ export function EcomCard({
         </div>
 
         <div className="flex items-center justify-between">
-          {/* Show price only if NOT school_admin */}
+         
           {!isSchoolAdmin && (
             <span className="text-3xl font-bold text-gray-900">£{price}</span>
           )}

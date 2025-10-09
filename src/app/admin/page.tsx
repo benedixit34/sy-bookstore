@@ -69,9 +69,7 @@ export default function UsersPage() {
 
   return (
     <div>
-      <h1 className="text-5xl font-bold mb-6">Users</h1>
-
-      {/* Add User Form */}
+      <h1 className="text-4xl text-[#53007B] font-bold mb-6 font-[raleway]">Users</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -82,7 +80,7 @@ export default function UsersPage() {
         }}
         className="mb-6 p-4 bg-yellow-100 rounded-lg py-10 px-10"
       >
-        <h2 className="text-xl font-semibold mb-4">Add User</h2>
+        <h2 className="text-2xl font-semibold mb-4">Add User</h2>
         <div className="flex gap-3">
           <input
             type="text"
@@ -111,7 +109,7 @@ export default function UsersPage() {
           <button
             type="submit"
             disabled={addMutation.isPending}
-            className="bg-[#53007B] text-white px-4 py-2 rounded hover:bg-[#53007B]/70"
+            className="bg-[#53007B] text-white font-bold px-4 py-2 rounded hover:bg-[#53007B]/70"
           >
             {addMutation.isPending ? "Adding..." : "Add"}
           </button>
@@ -149,7 +147,7 @@ export default function UsersPage() {
                     <button
                       onClick={() => deleteMutation.mutate(user.id)}
                       disabled={deleteMutation.isPending}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                      className="bg-red-600 text-white font-bold px-3 py-1 rounded hover:bg-red-700"
                     >
                       {deleteMutation.isPending ? "Deleting..." : "Delete"}
                     </button>

@@ -4,23 +4,20 @@ import Image from "next/image";
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import Link from "next/link";
-import { signUpAction } from "@/app/actions";
+import { signUpAction } from "@/utils/authActions";
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
-import { NavBar } from "@/app/components/NavBar";
-
-
-async function verifyUser() {
-      const res = await fetch("/api/auth");
-      return await res.json();
-    
-    }
+import { NavBar } from "@/components/NavBar";
 
 export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    
+    async function verifyUser() {
+      const res = await fetch("/api/auth");
+      const data = await res.json();
+      setIsLoggedIn(data?.loggedIn);
+    }
     verifyUser();
   });
 

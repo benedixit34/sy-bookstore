@@ -1,10 +1,5 @@
 import Link from "next/link";
-
-type WebButtonProps = {
-  hyperlink: string;
-  text: string;
-  action?: () => void;
-};
+import { WebButtonProps } from "@/lib/types/components";
 
 
 export function PrimaryButton({ hyperlink, text, action }: WebButtonProps){

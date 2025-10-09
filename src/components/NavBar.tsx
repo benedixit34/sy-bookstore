@@ -3,13 +3,15 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid"
-import { signOutAction } from "../actions/authActions"
+import { signOutAction } from "@/utils/authActions"
 import { PrimaryButton, SecondaryButton }from "./ui/WebButton"
+import { getCookie } from "@/lib/getCookie"
 
 
 export function NavBar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [ cartCookie, setCartCookie ] = useState<any[]>([])
 
     useEffect(() => {
       async function verifyUser() {
@@ -18,6 +20,14 @@ export function NavBar() {
         setIsLoggedIn(data?.loggedIn);
       }
       verifyUser();
+
+      async function cookie_getter(){
+        const cookie_array = await getCookie()
+        setCartCookie(cookie_array)
+      }
+      cookie_getter()
+
+      
     }, []);
     
 
@@ -28,7 +38,8 @@ export function NavBar() {
                 <ul className="lg:flex gap-x-4 hidden place-items-center place-self-center">
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/">Home</Link></li>
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/explore">Explore</Link></li>
-                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/cart">Cart</Link></li>
+                    <li className="py-2 px-4 rounded-lg hover:text-[#53007B] space-x-3"><Link href="/cart">Cart 
+                    <span className="bg-[#53007B] text-white py-1 px-2 ml-2 rounded-lg">{ cartCookie && cartCookie.length}</span></Link></li>
                     
                 </ul>
 
@@ -67,7 +78,7 @@ export function NavBar() {
                     <Link href="/" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Home</Link>
                     <Link href="/explore" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Explore</Link>
                     <Link href="/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Library</Link>
-                    <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart</Link>
+                    <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart <span></span></Link>
                     {isLoggedIn ? <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Logout</Link>:<>
                     <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
                     <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Register</Link></>

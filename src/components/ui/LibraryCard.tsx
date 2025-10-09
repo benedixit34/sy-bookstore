@@ -1,13 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-type LibraryCardProps = {
-  imgSrc: string;
-  bookName: string;
-  bookDescription: string;
-  fileLink: string;
-};
-
+import { LibraryCardProps } from "@/lib/types/components";
 
 export function LibraryCard({ imgSrc, bookName, bookDescription, fileLink }: LibraryCardProps) {
     return (
