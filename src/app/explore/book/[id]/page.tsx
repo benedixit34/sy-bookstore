@@ -27,7 +27,11 @@ export default function Page() {
     getBook();
   }, [id]);
 
-  console.log(book);
+  const item = { bookId: book?.id ?? "", bookName: book?.name ?? "", imgSrc: book?.image ?? "" };
+  
+  const handleSaveWrapper = () => {
+    handleSave(item);
+  };
   if (!book) {
     return (
       <>
@@ -61,7 +65,7 @@ export default function Page() {
           <h5 className="text-3xl font-medium font-[lexend]">${book.price}</h5>
           <p className="text-md leading-loose font-[lexend]">{book.description} </p>
 
-          <PrimaryButton hyperlink="/cart" text="Add to Cart" action={() => handleSave(book.id, book.name, book.image)} />
+          <PrimaryButton hyperlink="/cart" text="Add to Cart" action={() => handleSaveWrapper()} />
         </div>
       </section>
       <FooterBottom />

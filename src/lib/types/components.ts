@@ -6,7 +6,7 @@ type BaseBookProps = {
 
 export type EcomCardProps = BaseBookProps & {
   action?: string;
-  bookId?: string;
+  bookId: string;
   price?: number | string;
 };
 

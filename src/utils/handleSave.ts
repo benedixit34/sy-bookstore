@@ -1,8 +1,12 @@
 import Cookies from "js-cookie";
 import { LibraryItem } from "@/lib/types/components"
 
-export async function handleSave(bookId?: string, bookName?: string, 
-                                imgSrc?: string, showToast?: (msg: string) => void) {
+export async function handleSave(item: LibraryItem, showToast?: (msg: string) => void) {
+  const { bookId, bookName, imgSrc } = item;
+  if (!bookId || !bookName || !imgSrc) {
+    showToast?.("Invalid book data");
+    return;
+  }
 
   const userRes = await fetch("api/auth")
   const userData = await userRes.json()
@@ -35,7 +39,7 @@ export async function handleSave(bookId?: string, bookName?: string,
     return;
   }
 
-  existing.push({ bookId, bookName: bookName || "", imgSrc: imgSrc || "" });
+  existing.push({ bookId!, bookName, imgSrc });
   Cookies.set("library", JSON.stringify(existing), { expires: 7 });
 
   showToast?.(`${bookName} has been added to your cart!`);

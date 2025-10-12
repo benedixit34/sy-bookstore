@@ -42,8 +42,9 @@ export default function Page() {
         <h1 className="text-5xl font-[raleway] font-bold pb-16 tracking-tight text-center">Latest Books</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-between gap-2 w-full">
           {books &&  [...books].reverse().slice(0, 3).map((book)=>
-          <EcomCard key={book.id} bookId={book.id} imgSrc={book.image} bookName={book.name} 
-          action="Add To Cart"  price={book.price} />
+          <EcomCard key={book.id ?? Math.random().toString()} 
+          bookId={book.id ?? ""} imgSrc={book.image ?? ""} bookName={book.name ?? ""} 
+          action="Add To Cart"  price={book.price ?? ""} />
           )}
           
           
