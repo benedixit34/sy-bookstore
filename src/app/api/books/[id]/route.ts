@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { CloudflareSave } from "@/utils/cloudflareSave";
+import { type SupabaseClient } from "@supabase/supabase-js";
 
 const IMAGE_BUCKET = "sy2025";
 const FILE_BUCKET = "sy-file";
 
 
-type ErrorDict = Record<string, string>;
 
 
-async function requireAdmin(supabase: any) {
+
+async function requireAdmin(supabase: SupabaseClient) {
   const {
     data: { user },
   } = await supabase.auth.getUser();

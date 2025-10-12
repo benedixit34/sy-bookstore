@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(req: Request) {
 
     const body = await req.json();
-    const { email, password, name, role } = body;
+    const { email, password, name } = body;
 
     if (!email || !password) {
       return NextResponse.json(

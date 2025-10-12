@@ -25,7 +25,7 @@ export default function Page() {
       setBook(data.book);
     };
     getBook();
-  }, [params.id]);
+  }, [id]);
 
   console.log(book);
   if (!book) {

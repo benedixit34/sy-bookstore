@@ -44,7 +44,7 @@ export function EcomCard({
       <Card
         className="w-full border-zinc-400 font-[lexend]"
         imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        imgSrc={imgSrc}
+        imgSrc={imgSrc || "/book-placeholder.png"}
       >
         <Link href={`/explore/book/${bookId}`}>
           <h5 className="text-lg font-medium tracking-tight text-gray-900 hover:text-[#53007B]">

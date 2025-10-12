@@ -49,6 +49,6 @@ export type BookProps = {
   name: string;
   description: string;
   image: string;
-  file: string;
-  price: number;
+  price?: number;
+  file?: string;
 };

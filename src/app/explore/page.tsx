@@ -95,7 +95,7 @@ export default function Page() {
               {query && (
                 <ul className="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md w-full mt-1 max-h-60 overflow-y-auto">
                   {suggestions.length > 0 ? (
-                    suggestions.map((book: Record<string, any>) => (
+                    suggestions.map((book: BookProps) => (
                       <li
                         key={book.id}
                         className="px-4 py-2 cursor-pointer hover:bg-gray-100"

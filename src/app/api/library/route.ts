@@ -2,11 +2,14 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import Stripe from "stripe";
 
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
   try {
     const supabase = await createClient();
+    
+
 
 
     const { data: { user }, error: userError } = await supabase.auth.getUser();
@@ -21,15 +24,9 @@ export async function POST(req: Request) {
     if (!cartItems || cartItems.length === 0)
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
 
-    const { data: schoolData, error: schoolError } = await supabase
-      .from("school")
-      .select("*")
-      .eq("user", userId)
-      .single();
-    if (schoolError  && schoolError.code !== "PGRST116") return NextResponse.json({ error: "Error checking school" }, { status: 500 });
 
 
-    if (schoolData) {
+    if (user?.user_metadata?.role === "school_admin") {
       const libraryEntries = cartItems.map(item => ({
         user: userId,
         book: item.book_id,
