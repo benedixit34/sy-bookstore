@@ -63,6 +63,8 @@ export async function PATCH(
 
     const formData = await req.formData();
 
+
+    //Add Partial Update
     const updates: Partial<BookProps> = {
       name: formData.get("name") as string,
       description: formData.get("description") as string,
