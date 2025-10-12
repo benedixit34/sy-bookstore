@@ -3,10 +3,10 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
 
-    const { id } = params;
+    const { id } = await context.params;
 
     if (!id) {
       return NextResponse.json({ error: "User ID required" }, { status: 400 });
@@ -21,4 +21,3 @@ export async function DELETE(
     return NextResponse.json({ success: true, data });
  
 }
-
