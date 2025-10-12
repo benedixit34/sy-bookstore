@@ -45,10 +45,10 @@ export type LibraryItem = BaseBookProps & {
 
 
 export type BookProps = {
-  id: string;
+  id?: string;
   name: string;
   description: string;
   image: string;
   price?: number;
-  file?: string;
+  file: string;
 };

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { CloudflareSave } from "@/utils/cloudflareSave";
 import { type SupabaseClient } from "@supabase/supabase-js";
+import { BookProps } from "@/lib/types/components";
 
 const IMAGE_BUCKET = "sy2025";
 const FILE_BUCKET = "sy-file";
@@ -62,10 +63,10 @@ export async function PATCH(
 
     const formData = await req.formData();
 
-    const updates: any = {
-      name: formData.get("name"),
-      description: formData.get("description"),
-      price: formData.get("price"),
+    const updates: Partial<BookProps> = {
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      price: parseFloat(formData.get("price") as string),
     };
 
     const imageFile = formData.get("image") as File | null;
