@@ -28,9 +28,11 @@ export type CartItemProps = BaseBookProps & {
   bookId: string;
   price?: number;
   school?: boolean;
-  onRemoveAction?: (bookName: string, bookId: string) => void;
+  onRemoveAction: (bookName: string, bookId: string) => void;
 
 };
+
+
 
 
 export type BookAPIProps = {

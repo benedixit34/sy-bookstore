@@ -11,10 +11,10 @@ import { getCookie } from "@/lib/getCookie";
 import { useQuery } from "@tanstack/react-query";
 import { useRemoveItem } from "@/hooks/useRemoveItem";
 import { useCartAction } from "@/hooks/useCartAction";
-import { LibraryItem } from "@/lib/types/components";
+import { CartItemProps } from "@/lib/types/components";
 
 export default function Page() {
-  const [cart, setCart] = useState<LibraryItem[]>([]);
+  const [cart, setCart] = useState<CartItemProps[]>([]);
 
   const { data: authData, isLoading } = useQuery({
     queryKey: ["authStatus"],

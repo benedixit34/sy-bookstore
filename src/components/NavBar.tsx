@@ -12,7 +12,7 @@ import { CartItemProps } from "@/lib/types/components"
 export function NavBar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [ cartCookie, setCartCookie ] = useState<CartItemProps[]>([])
+    const [ cartCookie, setCartCookie ] = useState<Partial<CartItemProps>[]>([])
 
     useEffect(() => {
       async function verifyUser() {
@@ -40,7 +40,8 @@ export function NavBar() {
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/">Home</Link></li>
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B]"><Link href="/explore">Explore</Link></li>
                     <li className="py-2 px-4 rounded-lg hover:text-[#53007B] space-x-3"><Link href="/cart">Cart 
-                    <span className="bg-[#53007B] text-white py-1 px-2 ml-2 rounded-lg">{ cartCookie && cartCookie.length}</span></Link></li>
+                    {cartCookie.length > 0 ? <span className="bg-[#53007B] text-white py-1 px-2 ml-2 rounded-lg"> 
+                        {cartCookie.length}</span> : ""}</Link></li>
                     
                 </ul>
 
