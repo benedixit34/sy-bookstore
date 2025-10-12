@@ -39,7 +39,9 @@ export async function handleSave(item: LibraryItem, showToast?: (msg: string) =>
     return;
   }
 
-  existing.push({ bookId!, bookName, imgSrc });
+
+  //Add new cookie item in cart
+  existing.push({ bookId, bookName, imgSrc });
   Cookies.set("library", JSON.stringify(existing), { expires: 7 });
 
   showToast?.(`${bookName} has been added to your cart!`);
