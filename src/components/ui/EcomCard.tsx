@@ -31,6 +31,7 @@ export function EcomCard({
   });
 
   const isSchoolAdmin = data?.isSchoolAdmin ?? false;
+  const item = { bookId, bookName, imgSrc };
 
   const showToast = (msg: string, duration = 3000) => {
     setToastMessage(msg);
@@ -69,7 +70,7 @@ export function EcomCard({
           )}
 
           <Button
-            onClick={() => handleSave(bookId, bookName, imgSrc, showToast)}
+            onClick={() => handleSave(item, showToast)}
             className="rounded-lg bg-[#53007B] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#53007B]/80 focus:outline-none 
             focus:ring-4 focus:ring-[#53007B]/40"
           >
