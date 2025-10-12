@@ -8,10 +8,7 @@ import { createTheme } from "flowbite-react";
 import { resetPasswordAction } from "@/utils/authActions";
 import Form from "next/form";
 import { useSearchParams } from "next/navigation";
-
-
-
-
+import { Suspense } from "react";
 
 
 
@@ -33,10 +30,8 @@ const customTheme = createTheme({
 
 export default function Page() {
   
-
-
-
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <ThemeProvider theme={customTheme}>
       <ThemeInit />
 
@@ -78,5 +73,6 @@ export default function Page() {
 
 
     </ThemeProvider>
+    </Suspense>
   );
 }
