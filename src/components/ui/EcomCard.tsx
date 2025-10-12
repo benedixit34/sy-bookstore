@@ -25,7 +25,7 @@ export function EcomCard({
 }: EcomCardProps) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const { data, isLoading, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ["role"],
     queryFn: fetchRole,
   });

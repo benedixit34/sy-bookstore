@@ -7,10 +7,11 @@ import { EcomCard } from "@/components/ui/EcomCard";
 import { FooterBottom } from "@/components/Footer";
 import { PrimaryButton } from "@/components/ui/WebButton";
 import { useEffect, useState } from "react";
+import { BookProps } from "@/lib/types/components";
 
 
 export default function Page() {
-   const [books, setBooks] = useState<any[]>([])
+   const [books, setBooks] = useState<BookProps[]>([])
 
    useEffect (() => {
       const fetchBooks = async () => {

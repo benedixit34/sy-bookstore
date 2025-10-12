@@ -6,6 +6,9 @@ const IMAGE_BUCKET = "sy2025";
 const FILE_BUCKET = "sy-file";
 
 
+type ErrorDict = Record<string, string>;
+
+
 async function requireAdmin(supabase: any) {
   const {
     data: { user },
@@ -25,7 +28,7 @@ export async function GET(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  try {
+  
     const supabase = await createClient();
     const { id } = await context.params;
 
@@ -44,16 +47,14 @@ export async function GET(
     }
 
     return NextResponse.json({ book });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+ 
 }
 
 export async function PATCH(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  try {
+  
     const supabase = await createClient();
     const { id } = await context.params;
     await requireAdmin(supabase);
@@ -98,17 +99,15 @@ export async function PATCH(
     }
 
     return NextResponse.json({ book: data });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  
 }
 
-// DELETE book
+
 export async function DELETE(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  try {
+
     const supabase = await createClient();
     const { id } = await context.params;
     await requireAdmin(supabase);
@@ -120,7 +119,5 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: "Book deleted successfully" });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+
 }

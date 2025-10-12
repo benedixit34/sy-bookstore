@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { PrimaryButton } from "@/components/ui/WebButton";
 import { handleSave } from "@/utils/handleSave";
+import { BookProps } from "@/lib/types/components";
 
 export default function Page() {
   const params = useParams();
   const id = params?.id as string;
 
-  const [book, setBook] = useState<any | null>(null);
+  const [book, setBook] = useState<BookProps | null>(null);
 
   useEffect(() => {
     const getBook = async () => {

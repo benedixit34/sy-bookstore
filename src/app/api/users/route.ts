@@ -3,22 +3,22 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 
 export async function GET() {
-  try {
+ 
     const { data, error } = await supabaseAdmin.auth.admin.listUsers();
-    if (error) throw error;
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    };
     const schoolAdmins = data.users.filter(
       (user) => user.user_metadata?.role === "school_admin"
     );
     return NextResponse.json({ users: schoolAdmins });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  
 }
 
 
 
 export async function POST(req: Request) {
-  try {
+
     const body = await req.json();
     const { email, password, name, role } = body;
 
@@ -44,14 +44,12 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true, user: data.user });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  
 }
 
 
 export async function DELETE(req: Request) {
-  try {
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 
@@ -66,7 +64,5 @@ export async function DELETE(req: Request) {
     }
 
     return NextResponse.json({ success: true, id });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+ 
 }

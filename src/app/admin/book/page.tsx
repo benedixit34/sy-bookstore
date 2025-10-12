@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { PrimaryButton } from "@/components/ui/WebButton";
+import Image from "next/image";
 
 type Book = {
   id: number;
@@ -147,10 +148,12 @@ export default function Page() {
                 >
                   <td className="p-3">{book.id}</td>
                   <td className="p-3">
-                    <img
+                    <Image
                       src={book.image}
                       alt={book.name}
                       className="w-16 h-16 object-cover rounded"
+                      width={64}
+                      height={64}
                     />
                   </td>
                   <td className="p-3">{book.name}</td>

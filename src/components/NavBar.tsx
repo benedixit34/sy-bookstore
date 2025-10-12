@@ -6,12 +6,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid"
 import { signOutAction } from "@/utils/authActions"
 import { PrimaryButton, SecondaryButton }from "./ui/WebButton"
 import { getCookie } from "@/lib/getCookie"
+import { CartItemProps } from "@/lib/types/components"
 
 
 export function NavBar() {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [ cartCookie, setCartCookie ] = useState<any[]>([])
+    const [ cartCookie, setCartCookie ] = useState<CartItemProps[]>([])
 
     useEffect(() => {
       async function verifyUser() {

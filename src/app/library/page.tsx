@@ -40,7 +40,7 @@ export default async function LibraryPage() {
           <h1 className="text-5xl font-[raleway] font-bold pb-4 tracking-tight">My Library</h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-between gap-6 w-full mt-16 px-4 xl:px-32">
-            {library?.map((item: any) => (
+            {library?.map((item: Record<any, any>) => (
               
               <LibraryCard
                 key={item.id}

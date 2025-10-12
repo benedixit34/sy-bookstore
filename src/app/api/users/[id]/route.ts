@@ -5,7 +5,7 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  try {
+
     const { id } = params;
 
     if (!id) {
@@ -19,8 +19,6 @@ export async function DELETE(
     }
 
     return NextResponse.json({ success: true, data });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+ 
 }
 

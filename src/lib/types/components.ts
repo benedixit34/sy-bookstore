@@ -24,13 +24,11 @@ export type WebButtonProps = {
 };
 
 
-export type CartItemProps = {
-  imgSrc: string;
-  bookName: string;
+export type CartItemProps = BaseBookProps & {
   bookId: string;
   price?: number;
   school?: boolean;
-  onRemoveAction: (bookName: string, bookId: string) => void;
+  onRemoveAction?: (bookName: string, bookId: string) => void;
 
 };
 
@@ -42,5 +40,15 @@ export type BookAPIProps = {
 
 
 export type LibraryItem = BaseBookProps & {
-  bookId?: string;
+  bookId: string;
+};
+
+
+export type BookProps = {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  file: string;
+  price: number;
 };

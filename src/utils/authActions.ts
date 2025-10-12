@@ -70,7 +70,7 @@ export const forgotPasswordAction = async (formData: FormData) => {
     return encodedRedirect("error", "/auth/forgot-password", "Email is required");
   }
 
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${origin}/auth/reset-password`,
   });
 

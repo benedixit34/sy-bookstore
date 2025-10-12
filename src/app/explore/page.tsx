@@ -9,6 +9,7 @@ import { ToastItem } from "@/components/ui/ToastItem";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/useToast";
+import { BookProps } from "@/lib/types/components";
 
 export default function Page() {
   const { toastMessage, showToast } = useToast();
@@ -46,14 +47,14 @@ export default function Page() {
     showToast("Error fetching books.");
   }
 
-  // ✅ Filter logic
-  const filteredBooks = books.filter((book: any) =>
+
+  const filteredBooks = books.filter((book: BookProps) =>
     book.name.toLowerCase().includes(query.toLowerCase())
   );
 
   const suggestions =
     query.length > 0
-      ? books.filter((book: any) =>
+      ? books.filter((book: BookProps) =>
           book.name.toLowerCase().includes(query.toLowerCase())
         )
       : [];
@@ -94,7 +95,7 @@ export default function Page() {
               {query && (
                 <ul className="absolute z-10 bg-white border border-gray-200 rounded-md shadow-md w-full mt-1 max-h-60 overflow-y-auto">
                   {suggestions.length > 0 ? (
-                    suggestions.map((book: any) => (
+                    suggestions.map((book: Record<string, any>) => (
                       <li
                         key={book.id}
                         className="px-4 py-2 cursor-pointer hover:bg-gray-100"
@@ -130,7 +131,7 @@ export default function Page() {
       <section className="container mx-auto">
         <div className="lg:mx-32 mx-4 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {filteredBooks.length > 0 ? (
-            filteredBooks.map((book: any) => (
+            filteredBooks.map((book: BookProps) => (
               <EcomCard
                 key={book.id}
                 bookId={book.id}

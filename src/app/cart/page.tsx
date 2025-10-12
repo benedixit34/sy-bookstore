@@ -11,9 +11,10 @@ import { getCookie } from "@/lib/getCookie";
 import { useQuery } from "@tanstack/react-query";
 import { useRemoveItem } from "@/hooks/useRemoveItem";
 import { useCartAction } from "@/hooks/useCartAction";
+import { LibraryItem } from "@/lib/types/components";
 
 export default function Page() {
-  const [library, setLibrary] = useState<any[]>([]);
+  const [cart, setCart] = useState<LibraryItem[]>([]);
 
   const { data: authData, isLoading } = useQuery({
     queryKey: ["authStatus"],
@@ -30,13 +31,13 @@ export default function Page() {
     queryKey: ["libraryCookie"],
     queryFn: async () => {
       const cookie = await getCookie();
-      setLibrary(cookie);
+      setCart(cookie);
       return cookie;
     },
   });
 
 
-  const { removeItem } = useRemoveItem(library, setLibrary);
+  const { removeItem } = useRemoveItem(cart, setCart);
   const { handleCartAction } = useCartAction();
 
   if (isLoading) {
@@ -56,22 +57,21 @@ export default function Page() {
           Cart Summary
         </h1>
 
-        {library.length === 0 ? (
+        {cart.length === 0 ? (
           <p className="text-gray-600">Your cart is empty.</p>
         ) : (
-          library.map((item, index) => (
+          cart.map((item, index) => (
             <CartItemCard
               key={index}
               bookId={item.bookId}
               imgSrc={item.imgSrc}
               bookName={item.bookName}
-              school={item.school}
               onRemoveAction={removeItem}
             />
           ))
         )}
 
-        {library.length > 0 && (
+        {cart.length > 0 && (
           <div className="mt-4 font-[lexend]">
             <Button
               onClick={

@@ -1,19 +1,20 @@
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { CartItemProps } from "@/lib/types/components";
 
 export const useRemoveItem = (
-  library: any[],
-  setLibrary: (val: any[]) => void
+  cart: CartItemProps[],
+  setCart: (val: CartItemProps[]) => void
 ) => {
   const [visible, setVisible] = useState<boolean>(true);
 
   const removeItem = async (bookNameToRemove: string, bookId: string) => {
-    const updatedLibrary = library.filter(
+    const updatedCart = cart.filter(
       (item) => item.bookName.trim() !== bookNameToRemove.trim()
     );
     setVisible(false);
-    setLibrary(updatedLibrary);
-    Cookies.set("library", JSON.stringify(updatedLibrary));
+    setCart(updatedCart);
+    Cookies.set("library", JSON.stringify(updatedCart));
 
     try {
       const userRes = await fetch("api/auth");
