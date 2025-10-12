@@ -134,7 +134,7 @@ export default function Page() {
             filteredBooks.map((book: BookProps) => (
               <EcomCard
                 key={book.id}
-                bookId={book.id}
+                bookId={book.id ?? ""}
                 imgSrc={book.image}
                 bookName={book.name}
                 action="Save In Library"
