@@ -5,7 +5,22 @@ import { CloudflareSave } from "@/utils/cloudflareSave";
 const IMAGE_BUCKET = "sy2025";
 const FILE_BUCKET = "sy-file";
 
-// GET single book
+
+async function requireAdmin(supabase: any) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user || user.user_metadata.role !== "school_admin") {
+    throw new Error("Unauthorized");
+  }
+
+  return user;
+}
+
+
+
+
 export async function GET(
   req: Request,
   context: { params: Promise<{ id: string }> }
@@ -41,6 +56,7 @@ export async function PATCH(
   try {
     const supabase = await createClient();
     const { id } = await context.params;
+    await requireAdmin(supabase);
 
     const formData = await req.formData();
 
@@ -95,6 +111,7 @@ export async function DELETE(
   try {
     const supabase = await createClient();
     const { id } = await context.params;
+    await requireAdmin(supabase);
 
     const { error } = await supabase.from("book").delete().eq("id", id);
 

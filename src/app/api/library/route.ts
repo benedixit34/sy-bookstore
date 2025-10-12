@@ -81,3 +81,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
+
+export const GET = async (req: Request) => {
+  const supabase = await createClient();
+  const { data: library, error } = await supabase
+    .from("library")
+    .select(`
+      id,
+      book (
+        id,
+        name,
+        description,
+        image,
+        file
+      )
+    `)
+    .order("id", { ascending: false });
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+  return NextResponse.json({ library });
+}
