@@ -83,7 +83,7 @@ export function NavBar() {
                     <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart <span></span></Link>
                     {isLoggedIn ? <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Logout</Link>:<>
                     <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
-                    <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Register</Link></>
+                    <Link href="/auth/register" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Register</Link></>
                     
                 
                 }
