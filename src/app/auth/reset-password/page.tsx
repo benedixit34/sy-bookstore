@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
+import { NavBar } from "@/components/NavBar"
 import { createTheme } from "flowbite-react";
 import { resetPasswordAction } from "@/utils/authActions";
 import Form from "next/form";
@@ -30,7 +31,7 @@ function ResetPasswordForm() {
   const code = searchParams.get("code") || "";
 
   return (
-    <Card className="w-sm lg:w-md min-h-80 mx-auto border-gray-900">
+    <Card className="w-sm lg:w-md mx-auto border-gray-400">
       <Form action={resetPasswordAction} className="flex flex-col gap-4">
         <div>
           <div className="mb-2 block">
@@ -74,13 +75,12 @@ export default function Page() {
     <Suspense fallback={<div>Loading...</div>}>
       <ThemeProvider theme={customTheme}>
         <ThemeInit />
+        <NavBar />
 
         <section className="font-[lexend] bg-yellow-50 flex justify-center min-h-[100vh]">
           <div className="flex flex-col justify-center py-16">
             <div className="w-full flex flex-col items-center">
-              <Link href="/" className="mb-8">
-                <Image src="/sabiyou.png" height={70} width={70} alt="Logo" />
-              </Link>
+          
               <h1
                 className="text-center mb-8 text-4xl font-bold leading-none
                 tracking-tight font-[raleway]"
