@@ -6,11 +6,10 @@ export function Message() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
   const success = searchParams.get("success")
-  const errorDescription = searchParams.get("error_description");
   if (error){
      return (
       <span className="font-[lexend] text-center text-red-700 mt-4">
-        {decodeURIComponent(errorDescription || "An unknown error occurred.")}
+        {decodeURIComponent(error || "Login was unsuccessful" )}
       </span>
   );
   }
