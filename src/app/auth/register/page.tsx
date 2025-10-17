@@ -40,7 +40,7 @@ export default function Page() {
             </h1>
           </div>
 
-          <Card className="w-md h-min-100 mx-auto border-gray-300">
+          <Card className="w-md mx-auto border-gray-300">
             <form className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
