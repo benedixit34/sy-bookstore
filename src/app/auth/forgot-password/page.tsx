@@ -46,7 +46,7 @@ export default function Page() {
       <ThemeInit />
       <NavBar />
 
-      <section className="font-[lexend] bg-yellow-50 flex justify-center pt-15 lg:pt-30 px-4 lg:px-0 min-h-[100vh]">
+      <section className="font-[lexend] bg-yellow-50 flex justify-center pt-15 lg:pt-30 min-h-[100vh]">
         <div className="flex flex-col justify-center place-content-center py-16">
           <div className="w-full place-items-center flex flex-col">
          
@@ -58,7 +58,7 @@ export default function Page() {
             </h1>
           </div>
 
-          <Card className="w-sm lg:w-md mx-auto border-gray-400">
+          <Card className="w-sm lg:w-md mx-4 md:mx-auto border-gray-400">
             <Form action={forgotPasswordAction} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
