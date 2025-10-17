@@ -91,7 +91,7 @@ export default function Page() {
             </form>
             <p className="text-sm font-medium">
               <Link
-                href="/auth/register"
+                href="/auth/forgot-password"
                 className="hover:text-[#53007B] cursor-pointer ml-2"
               >
                 Forgot Password?
