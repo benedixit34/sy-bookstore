@@ -28,7 +28,7 @@ export default function Page() {
       <ThemeInit />
       <NavBar />
 
-      <section className="font-[lexend] bg-yellow-50 flex justify-center pt-30 min-h-[100vh]">
+      <section className="font-[lexend] bg-yellow-50 flex justify-center pt-15 lg:pt-30 px-4 lg:px-0 min-h-[100vh]">
         <div className="flex flex-col justify-center py-16">
           <div className="w-full place-items-center flex flex-col">
           
