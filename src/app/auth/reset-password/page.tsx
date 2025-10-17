@@ -8,6 +8,7 @@ import { createTheme } from "flowbite-react";
 import { resetPasswordAction } from "@/utils/authActions";
 import Form from "next/form";
 import { useSearchParams } from "next/navigation";
+import { Message } from "@/components/AuthMessage"
 import { Suspense } from "react";
 
 const customTheme = createTheme({
@@ -57,7 +58,7 @@ function ResetPasswordForm() {
           />
         </div>
 
-        {/* ✅ use code variable here */}
+     
         <TextInput id="code" name="code" value={code} hidden readOnly />
 
         <Button type="submit" className="bg-[#53007B]">
@@ -88,6 +89,7 @@ export default function Page() {
               </h1>
             </div>
             <ResetPasswordForm />
+            <Message />
           </div>
         </section>
       </ThemeProvider>
