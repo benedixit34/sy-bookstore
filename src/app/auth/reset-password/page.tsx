@@ -31,7 +31,7 @@ function ResetPasswordForm() {
   const code = searchParams.get("code") || "";
 
   return (
-    <Card className="w-sm lg:w-md mx-4 lg:mx-auto border-gray-400">
+    <Card className="w-xs sm:w-sm lg:w-md mx-4 lg:mx-auto border-gray-400">
       <Form action={resetPasswordAction} className="flex flex-col gap-4">
         <div>
           <div className="mb-2 block">

@@ -58,7 +58,7 @@ export default function Page() {
             </h1>
           </div>
 
-          <Card className="w-sm lg:w-md mx-4 md:mx-auto border-gray-400">
+          <Card className="w-xs sm:w-sm lg:w-md mx-auto border-gray-400">
             <Form action={forgotPasswordAction} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
