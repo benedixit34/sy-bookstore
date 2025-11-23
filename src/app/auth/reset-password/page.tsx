@@ -32,7 +32,7 @@ function ResetPasswordForm() {
 
   return (
     <Card className="w-xs sm:w-sm lg:w-md mx-4 lg:mx-auto border-gray-400">
-      <Form action={resetPasswordAction} className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4">
         <div>
           <div className="mb-2 block">
             <Label htmlFor="password">New Password</Label>
@@ -62,10 +62,10 @@ function ResetPasswordForm() {
      
         <TextInput id="code" name="code" value={code} hidden readOnly />
 
-        <Button type="submit" className="bg-[#53007B]">
+        <Button type="submit" className="bg-[#53007B]" formAction={resetPasswordAction}>
           Submit
         </Button>
-      </Form>
+      </form>
     </Card>
   );
 }
@@ -74,8 +74,7 @@ export default function Page() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ThemeProvider theme={customTheme}>
-        <ThemeInit />
-        <NavBar />
+      
 
         <section className="font-[lexend] bg-yellow-50 flex justify-center pt-15 lg:pt-30 px-4 lg:px-0 min-h-[100vh]">
           <div className="flex flex-col justify-center py-16">

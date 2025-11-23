@@ -25,6 +25,7 @@ export const getCookie = async () => {
             bookId: item.book_id,
             bookName: book.name,
             imgSrc: book.image,
+            price: book.price,
           };
         })
       );

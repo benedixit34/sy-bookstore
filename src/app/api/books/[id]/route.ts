@@ -48,7 +48,11 @@ export async function GET(
       return NextResponse.json({ error: "Book not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ book });
+    return NextResponse.json({"book": {"id": book.id,
+      "name": book.name,
+      "image": book.image,
+      "price": book.price
+     }});
  
 }
 

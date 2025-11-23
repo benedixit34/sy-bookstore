@@ -31,7 +31,7 @@ export function EcomCard({
   });
 
   const isSchoolAdmin = data?.isSchoolAdmin ?? false;
-  const item = { bookId, bookName, imgSrc };
+  const item = { bookId, bookName, imgSrc, price };
 
   const showToast = (msg: string, duration = 3000) => {
     setToastMessage(msg);

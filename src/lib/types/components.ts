@@ -7,7 +7,7 @@ type BaseBookProps = {
 export type EcomCardProps = BaseBookProps & {
   action?: string;
   bookId: string;
-  price?: number | string;
+  price: number | string;
 };
 
 
@@ -26,7 +26,7 @@ export type WebButtonProps = {
 
 export type CartItemProps = BaseBookProps & {
   bookId: string;
-  price?: number;
+  price: number;
   school?: boolean;
   onRemoveAction: (bookName: string, bookId: string) => void;
 
@@ -43,6 +43,7 @@ export type BookAPIProps = {
 
 export type LibraryItem = BaseBookProps & {
   bookId: string;
+  price: number | string;
 };
 
 

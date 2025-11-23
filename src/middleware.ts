@@ -9,6 +9,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
+  if (user && (path.startsWith("/auth/login") || path.startsWith("/auth/register"))) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
   if (path.startsWith("/admin") && user?.user_metadata?.role !== "school_admin") {
     return NextResponse.redirect(new URL("/", request.url)); 
   }

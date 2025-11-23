@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import Link from "next/link"
@@ -7,29 +8,20 @@ import { signOutAction } from "@/utils/authActions"
 import { PrimaryButton, SecondaryButton }from "./ui/WebButton"
 import { getCookie } from "@/lib/getCookie"
 import { CartItemProps } from "@/lib/types/components"
+import { useQuery } from "@tanstack/react-query"
 
 
-export function NavBar() {
+export function NavBar({isLoggedIn}: { isLoggedIn: boolean}) {
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [ cartCookie, setCartCookie ] = useState<Partial<CartItemProps>[]>([])
+  
 
-    useEffect(() => {
-      async function verifyUser() {
-        const res = await fetch("/api/auth");
-        const data = await res.json();
-        setIsLoggedIn(data?.loggedIn);
-      }
-      verifyUser();
-
-      async function cookie_getter(){
-        const cookie_array = await getCookie()
-        setCartCookie(cookie_array)
-      }
-      cookie_getter()
-
-      
-    }, []);
+    const { data: cartCookie = [] } = useQuery<Partial<CartItemProps>[]>({
+        queryKey: ["cartCookie"],
+        queryFn: async () => {
+            return await getCookie();
+        },
+        staleTime: 1000 * 60,
+    });
     
 
     return (
@@ -61,11 +53,11 @@ export function NavBar() {
 
                 <div className="relative w-10 h-10 flex lg:hidden place-content-start place-self-end">
                     <button onClick={() => setIsOpen(!isOpen)} className="relative w-full h-full">
-                        {/* Menu Icon */}
+                      
                         <Bars3Icon className={`absolute text-[#53007B] inset-0 transition-all duration-300 ease-in-out transform 
                         ${isOpen ? 'opacity-0 scale-90' : 'opacity-100 scale-100'
                           }`} />
-                        {/* Close Icon */}
+                       
                         <XMarkIcon className={`absolute text-[#53007B] inset-0 transition-all duration-300 ease-in-out transform 
                         ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
                                 }`}
@@ -81,12 +73,15 @@ export function NavBar() {
                     <Link href="/explore" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Explore</Link>
                     <Link href="/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Library</Link>
                     <Link href="/cart" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Cart <span></span></Link>
-                    {isLoggedIn ? <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Logout</Link>:<>
-                    <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
-                    <Link href="/auth/register" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Register</Link></>
-                    
-                
-                }
+                     {isLoggedIn ? 
+                    <>
+                    <Link href="/library" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Check Library</Link>
+                    <li><PrimaryButton hyperlink="#" text="Logout" action={signOutAction} /></li></>:
+                     <>
+                     <Link href="/auth/login" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Login</Link>
+                     <Link href="/auth/register" className="py-2 px-4 rounded-lg hover:text-[#53007B]">Register</Link>
+                     </>}
+                   
                 </div>
             }
 
@@ -96,3 +91,4 @@ export function NavBar() {
 
     );
 }
+ 

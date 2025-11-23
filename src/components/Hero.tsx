@@ -26,7 +26,7 @@ export function Hero() {
                         >
                             <Image
                                 src="/book_flat.svg"
-                                className="w-full h-96 object-cover rounded-xl"
+                                className="w-full h-auto object-cover rounded-xl"
                                 alt="Book Cover"
                                 height={384}
                                 width={256}

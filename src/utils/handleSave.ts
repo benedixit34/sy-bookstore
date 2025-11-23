@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import { LibraryItem } from "@/lib/types/components"
 
 export async function handleSave(item: LibraryItem, showToast?: (msg: string) => void) {
-  const { bookId, bookName, imgSrc } = item;
+  const { bookId, bookName, imgSrc, price } = item;
   if (!bookId || !bookName || !imgSrc) {
     showToast?.("Invalid book data");
     return;
@@ -32,6 +32,7 @@ export async function handleSave(item: LibraryItem, showToast?: (msg: string) =>
   const existing: LibraryItem[] = JSON.parse(Cookies.get("library") || "[]");
   const alreadyExists = existing.some(
     (item: LibraryItem) => item.bookName === bookName && item.imgSrc === imgSrc
+    && item.price
   );
 
   if (alreadyExists) {
@@ -40,8 +41,7 @@ export async function handleSave(item: LibraryItem, showToast?: (msg: string) =>
   }
 
 
-  //Add new cookie item in cart
-  existing.push({ bookId, bookName, imgSrc });
+  existing.push({ bookId, bookName, imgSrc, price });
   Cookies.set("library", JSON.stringify(existing), { expires: 7 });
 
   showToast?.(`${bookName} has been added to your cart!`);

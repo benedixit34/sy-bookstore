@@ -34,11 +34,10 @@ export default function Page() {
   if (isLoading) {
     return (
       <>
-        <NavBar />
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-screen font-[lexend]">
           <p className="text-gray-500">Loading books...</p>
         </div>
-        <FooterBottom />
+  
       </>
     );
   }
@@ -61,8 +60,7 @@ export default function Page() {
 
   return (
     <>
-      <ThemeInit />
-      <NavBar />
+    
       {toastMessage && <ToastItem message={toastMessage} />}
 
       <section className="mx-auto container font-[lexend]">
@@ -148,7 +146,7 @@ export default function Page() {
           )}
         </div>
       </section>
-      <FooterBottom />
+   
     </>
   );
 }

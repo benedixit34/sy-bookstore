@@ -1,8 +1,12 @@
+// app/layout.tsx
+
 import type { Metadata } from "next";
-import {Lexend, Raleway } from "next/font/google";
+import { Lexend, Raleway } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-
+import { NavBarWrapper } from "@/components/NavBarWrapper"; 
+import { ThemeInit } from "../../.flowbite-react/init";
+import { FooterBottom } from "@/components/Footer";
 
 
 const lexend = Lexend({
@@ -14,7 +18,6 @@ const raleway = Raleway({
   variable: "--font-raleway",
   subsets: ["latin"],
 });
-
 
 
 export const metadata: Metadata = {
@@ -32,7 +35,14 @@ export default function RootLayout({
       <body
         className={`${lexend.variable} ${raleway.variable} antialiased font-light`}
       >
-       <Providers>{children}</Providers>
+        <ThemeInit /> 
+        
+  
+        <Providers>
+          <NavBarWrapper /> 
+          {children}
+        </Providers>
+        <FooterBottom />
       </body>
     </html>
   );
