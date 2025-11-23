@@ -1,13 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { Button, Card, Label, TextInput, ThemeProvider } from "flowbite-react";
-import { ThemeInit } from "../../../../.flowbite-react/init";
-import { NavBar } from "@/components/NavBar"
 import { createTheme } from "flowbite-react";
 import { resetPasswordAction } from "@/utils/authActions";
-import Form from "next/form";
 import { useSearchParams } from "next/navigation";
 import { Message } from "@/components/AuthMessage"
 import { Suspense } from "react";

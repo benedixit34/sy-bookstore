@@ -1,32 +1,17 @@
 "use client";
 
-import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Card, Label, TextInput } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import { signUpAction } from "@/utils/authActions";
 import { useState, useEffect, Suspense } from "react";
 import { redirect } from "next/navigation";
-import { NavBar } from "@/components/NavBar";
 import { Message } from "@/components/AuthMessage";
 
 export default function Page() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  useEffect(() => {
-    async function verifyUser() {
-      const res = await fetch("/api/auth");
-      const data = await res.json();
-      setIsLoggedIn(data?.loggedIn);
-    }
-    verifyUser();
-  });
-
-  if (isLoggedIn) {
-    redirect("/");
-  }
   return (
     <div className="min-h-[100vh]">
       <ThemeInit />
-      <NavBar />
 
       <section className="font-[lexend] bg-yellow-50 flex justify-center pt-15 lg:pt-30 px-4 lg:px-0 min-h-[100vh]">
         <div className="flex flex-col justify-center py-16">

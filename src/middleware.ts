@@ -9,7 +9,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  if (user && (path.startsWith("/auth/login") || path.startsWith("/auth/register"))) {
+  if (user && (path.startsWith("/auth/login") || path.startsWith("/auth/register") || 
+              path.startsWith("/auth/forgot-password"))) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 

@@ -4,11 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, Label, TextInput, ThemeProvider } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
-import { NavBar } from "@/components/NavBar"
 import { createTheme } from "flowbite-react";
 import { forgotPasswordAction } from "@/utils/authActions";
-import Form from "next/form";
-import { useEffect, useState, Suspense } from "react";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { Message } from "@/components/AuthMessage";
 
@@ -26,25 +24,11 @@ const customTheme = createTheme({
 });
 
 export default function Page() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  useEffect(() => {
-    async function verifyUser() {
-      const res = await fetch("/api/auth");
-      const data = await res.json();
-      setIsLoggedIn(data?.loggedIn);
-    }
-    verifyUser();
-  });
-
-  if (isLoggedIn) {
-    redirect("/");
-  }
-
+  
   return (
     <ThemeProvider theme={customTheme}>
       <ThemeInit />
-      <NavBar />
+
 
       <section className="font-[lexend] bg-yellow-50 flex justify-center pt-15 lg:pt-30 min-h-[100vh]">
         <div className="flex flex-col justify-center place-content-center py-16">
@@ -59,7 +43,7 @@ export default function Page() {
           </div>
 
           <Card className="w-xs sm:w-sm lg:w-md mx-auto border-gray-400">
-            <Form action={forgotPasswordAction} className="flex flex-col gap-4">
+            <form action={forgotPasswordAction} className="flex flex-col gap-4">
               <div>
                 <div className="mb-2 block">
                   <Label htmlFor="email1">Your email</Label>
@@ -73,10 +57,10 @@ export default function Page() {
                 />
               </div>
 
-              <Button type="submit" className="bg-[#53007B]">
+              <Button type="submit" className="bg-[#53007B]" formAction={forgotPasswordAction}>
                 Submit
               </Button>
-            </Form>
+            </form>
           </Card>
           <Suspense fallback={null}>
             <Message />
