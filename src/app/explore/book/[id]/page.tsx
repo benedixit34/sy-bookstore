@@ -1,13 +1,14 @@
 "use client";
 
-import { FooterBottom } from "@/components/Footer";
+
 import Image from "next/image";
 import { useToast } from "@/hooks/useToast"
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { PrimaryButton } from "@/components/ui/WebButton";
+import { ToastItem } from "@/components/ui/ToastItem";
 import { handleSave } from "@/utils/handleSave";
-import { BookProps } from "@/lib/types/components";
+
 
 export default function Page() {
   const params = useParams();
@@ -40,6 +41,8 @@ export default function Page() {
 
   return (
     <>
+
+    {toastMessage && <ToastItem message={toastMessage} />}
      
       <section className="grid grid-cols-1 lg:grid-cols-2 xl:px-32 xl:pt-64 xl:pb-32 md:px-10 py-32 px-4 gap-12 place-items-center">
         <div className="">

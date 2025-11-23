@@ -1,6 +1,5 @@
 "use client";
 
-import { ThemeInit } from "../../../.flowbite-react/init";
 import { useState } from "react"
 import CartItemCard from "@/components/ui/CartItemCard";
 import { Button } from "flowbite-react";
@@ -70,7 +69,7 @@ export default function Page() {
   // --- Render ---
   return (
     <>
-      <ThemeInit />
+    
 
       <div className="min-h-screen flex flex-col items-center justify-center gap-y-4 pt-48 mb-32 mx-4">
         <h1 className="text-3xl font-[raleway] font-bold text-gray-800 mb-8">
