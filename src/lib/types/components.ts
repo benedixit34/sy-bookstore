@@ -3,11 +3,14 @@ type BaseBookProps = {
   bookName: string;
 };
 
+type Price = {
+  price: number | string;
+}
 
-export type EcomCardProps = BaseBookProps & {
+
+export type EcomCardProps = BaseBookProps & Price & {
   action?: string;
   bookId: string;
-  price: number | string;
 };
 
 
@@ -24,16 +27,12 @@ export type WebButtonProps = {
 };
 
 
-export type CartItemProps = BaseBookProps & {
+export type CartItemProps = BaseBookProps & Price & {
   bookId: string;
-  price: number;
   school?: boolean;
   onRemoveAction: (bookName: string, bookId: string) => void;
 
 };
-
-
-
 
 export type BookAPIProps = {
     book_id: string;
@@ -41,17 +40,14 @@ export type BookAPIProps = {
 }
 
 
-export type LibraryItem = BaseBookProps & {
+export type LibraryItem = BaseBookProps & Price & {
   bookId: string;
-  price: number | string;
 };
 
-
-export type BookProps = {
+export type BookProps = Price & {
   id?: string;
   name: string;
   description: string;
   image: string;
-  price?: number;
   file: string;
 };

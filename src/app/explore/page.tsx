@@ -1,10 +1,7 @@
 "use client";
 
 import { TextInput, Button } from "flowbite-react";
-import { ThemeInit } from "../../../.flowbite-react/init";
-import { NavBar } from "@/components/NavBar";
 import { EcomCard } from "@/components/ui/EcomCard";
-import { FooterBottom } from "@/components/Footer";
 import { ToastItem } from "@/components/ui/ToastItem";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -131,7 +128,7 @@ export default function Page() {
       <section className="container mx-auto">
         <div className="lg:mx-32 mx-4 py-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {filteredBooks.length > 0 ? (
-            filteredBooks.map((book: BookProps) => (
+            filteredBooks.map((book: BookProps) => (book &&
               <EcomCard
                 key={book.id}
                 bookId={book.id ?? ""}

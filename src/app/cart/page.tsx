@@ -15,12 +15,18 @@ import { CartItemProps } from "@/lib/types/components";
 
 const calculateCartTotal = (cart: CartItemProps[]): string => {
   const total = cart.reduce((sum, item) => {
-    const price = item.price;
-    return sum + price;
+  let price = item.price;
+  if (typeof price === "string") {
+      price = parseFloat(price);
+    }
+
+  if (isNaN(price)) price = 0;
+
+  return sum + price;
   }, 0);
+
   return total.toFixed(2);
 };
-
 
 export default function Page() {
   const router = useRouter();
