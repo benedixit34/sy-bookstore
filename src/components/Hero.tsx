@@ -19,19 +19,18 @@ export function Hero() {
                         <PrimaryButton hyperlink="/explore" text="Shop Now" />
                     </div>
 
-                    <div className="flex justify-center rounded-2xl flex-col place-content-center w-full">
-                        <div
-                            className="flex flex-col lg:shadow-2xl bg-white/50 backdrop-blur-2xl relative 
-                z-10 border-zinc-400 border-[0.5px] rounded-xl"
-                        >
+                    <div className="flex justify-center rounded-2xl flex-col place-content-center w-full px-10 md:px-16 lg:px-24 xl:px-32">
+                     
+                           
                             <Image
                                 src="/sy_bookstores_every.jpg"
-                                className="w-full h-96 object-cover rounded-xl"
+                                className="w-full h-[70vh] object-cover rounded-xl bg-white/50 backdrop-blur-2xl
+                                border-zinc-400 border-[0.5px] lg:shadow-2xl"
                                 alt="Book Cover"
                                 height={384}
                                 width={256}
                             />
-                        </div>
+                      
                     </div>
                 </div>
             </div>

@@ -55,6 +55,7 @@ export default function LibraryPage() {
           <h1 className="text-5xl font-[raleway] font-bold pb-4 tracking-tight">
             My Library
           </h1>
+          {library.length > 0 ?
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-between gap-6 w-full mt-16 px-4 xl:px-32">
             {library?.map((item: LibraryItem) => (
@@ -67,6 +68,7 @@ export default function LibraryPage() {
               />
             ))}
           </div>
+: <p className="text-gray-600 font-[lexend]">Your library is empty. Start browsing our collection!</p>}
         </div>
       </section>
     </>
