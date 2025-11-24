@@ -4,6 +4,7 @@ import { LibraryCard } from "@/components/ui/LibraryCard"
 import { ThemeInit } from "../../../.flowbite-react/init"
 import { BookProps } from "@/lib/types/components"
 import { useQuery } from "@tanstack/react-query"
+import { LoadingMsg } from "@/components/Loader"
 
 
 interface LibraryItem {
@@ -32,6 +33,18 @@ export default function LibraryPage() {
 
 
   const library = libraryData ?? []
+
+   if (isLoading) {
+      return (
+        <LoadingMsg msg="Loading Library" />
+      );
+    }
+  
+    if (isError) {
+      return (
+        <LoadingMsg msg="Error Fetching Library" />
+      );
+    }
 
 
   return (

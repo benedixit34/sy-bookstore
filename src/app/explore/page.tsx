@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useToast } from "@/hooks/useToast";
 import { BookProps } from "@/lib/types/components";
+import { LoadingMsg } from "@/components/Loader";
 
 export default function Page() {
   const { toastMessage, showToast } = useToast();
@@ -30,17 +31,14 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <>
-        <div className="flex items-center justify-center h-screen font-[lexend]">
-          <p className="text-gray-500">Loading books...</p>
-        </div>
-  
-      </>
+      <LoadingMsg msg="Loading Books" />
     );
   }
 
   if (isError) {
-    showToast("Error fetching books.");
+    return (
+      <LoadingMsg msg="Error Fetching Books" />
+    );
   }
 
 

@@ -3,8 +3,7 @@
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { ThemeInit } from "../../../../.flowbite-react/init";
 import { signUpAction } from "@/utils/authActions";
-import { useState, useEffect, Suspense } from "react";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { Message } from "@/components/AuthMessage";
 
 export default function Page() {

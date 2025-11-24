@@ -5,6 +5,7 @@ import { PrimaryButton } from "@/components/ui/WebButton";
 import { EcomCard } from "@/components/ui/EcomCard";
 import { Hero } from "@/components/Hero";
 import { BookProps } from "@/lib/types/components";
+import { LoadingMsg } from "@/components/Loader";
 
 export default function Page() {
   
@@ -30,11 +31,7 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <>
-        <div className="flex items-center justify-center h-screen font-[lexend]">
-          <p className="text-gray-500">Loading books...</p>
-        </div>
-      </>
+      <LoadingMsg msg="Loading...." />
     );
   }
 

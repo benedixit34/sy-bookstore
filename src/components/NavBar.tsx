@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid"
 import { signOutAction } from "@/utils/authActions"

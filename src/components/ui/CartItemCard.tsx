@@ -1,9 +1,8 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { CartItemProps } from "@/lib/types/components";
-
 
 export default function CartItemCard({
   imgSrc,
@@ -11,14 +10,16 @@ export default function CartItemCard({
   bookId,
   price,
   school,
-  onRemoveAction
-
+  onRemoveAction,
 }: CartItemProps) {
-
-
+  if(typeof price == "string"){
+    price = parseFloat(price)
+  }
   return (
-    <div className="w-full max-w-2xl bg-white rounded-2xl shadow-md border border-zinc-500 flex 
-    items-center gap-4 p-4 font-[lexend]">
+    <div
+      className="w-full max-w-2xl bg-white rounded-2xl shadow-md border border-zinc-500 flex 
+      items-center gap-4 p-4 font-[lexend]"
+    >
       <Image
         src={imgSrc.trimStart()}
         alt={bookName}
@@ -27,17 +28,19 @@ export default function CartItemCard({
         height={80}
       />
 
-
       <div className="flex-1">
-        <h3 className="font-semibold text-gray-800 text-sm lg:text-[18px]">{bookName}</h3>
+        <h3 className="font-semibold text-gray-800 text-sm lg:text-[18px]">
+          {bookName}
+        </h3>
         {!school && price !== undefined && price !== null && (
-          <p className="text-gray-600">{`$${price?.toFixed(2)}`}</p>
+          <p className="text-gray-600">{`$${price.toFixed(2)}`}</p>
         )}
       </div>
 
-
-        <XMarkIcon onClick={() => onRemoveAction(bookName, bookId)} className="text-[#53007B] w-12" />
-    
+      <XMarkIcon
+        onClick={() => onRemoveAction(bookName, bookId)}
+        className="text-[#53007B] w-12"
+      />
     </div>
   );
 }
