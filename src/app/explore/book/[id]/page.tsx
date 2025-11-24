@@ -42,6 +42,13 @@ export default function Page() {
     );
   }
 
+
+  if (isError) {
+    return (
+     <LoadingMsg msg="Error Loading Book" />
+    );
+  }
+
   return (
     <>
       {toastMessage && <ToastItem message={toastMessage} />}
