@@ -25,7 +25,7 @@ export function Hero() {
                 z-10 border-zinc-400 border-[0.5px] rounded-xl"
                         >
                             <Image
-                                src="/book_flat.svg"
+                                src="/sy_bookstores_every.jpg"
                                 className="w-full h-auto object-cover rounded-xl"
                                 alt="Book Cover"
                                 height={384}
